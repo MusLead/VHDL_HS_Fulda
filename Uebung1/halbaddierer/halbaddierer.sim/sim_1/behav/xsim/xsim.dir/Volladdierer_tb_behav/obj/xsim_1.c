@@ -45,16 +45,18 @@
 typedef void (*funcp)(char *, char *);
 extern int main(int, char**);
 extern void execute_22(char*, char *);
+extern void execute_23(char*, char *);
+extern void execute_24(char*, char *);
 extern void execute_12(char*, char *);
 extern void execute_14(char*, char *);
 extern void execute_21(char*, char *);
 extern void vhdl_transfunc_eventcallback(char*, char*, unsigned, unsigned, unsigned, char *);
-funcp funcTab[5] = {(funcp)execute_22, (funcp)execute_12, (funcp)execute_14, (funcp)execute_21, (funcp)vhdl_transfunc_eventcallback};
-const int NumRelocateId= 5;
+funcp funcTab[7] = {(funcp)execute_22, (funcp)execute_23, (funcp)execute_24, (funcp)execute_12, (funcp)execute_14, (funcp)execute_21, (funcp)vhdl_transfunc_eventcallback};
+const int NumRelocateId= 7;
 
 void relocate(char *dp)
 {
-	iki_relocate(dp, "xsim.dir/Volladdierer_tb_behav/xsim.reloc",  (void **)funcTab, 5);
+	iki_relocate(dp, "xsim.dir/Volladdierer_tb_behav/xsim.reloc",  (void **)funcTab, 7);
 	iki_vhdl_file_variable_register(dp + 3336);
 	iki_vhdl_file_variable_register(dp + 3392);
 
