@@ -1,0 +1,4 @@
+Running: xsim.dir/halbaddierer_tb_behav/xsimk.exe -simmode gui -wdb halbaddierer_tb_behav.wdb -simrunnum 0 -socket 51596
+Design successfully loaded
+Design Loading Memory Usage: 8308 KB (Peak: 8308 KB)
+Design Loading CPU Usage: 0 ms
