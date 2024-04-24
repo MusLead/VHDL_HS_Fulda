@@ -1,0 +1,17 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto f464fbb1329b4dfeb673f96b3b7171d1 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot testBranch_behav xil_defaultlib.testBranch -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling architecture verhalten of entity xil_defaultlib.and_gate [and_gate_default]
+Compiling architecture verhalten of entity xil_defaultlib.xor_gate [xor_gate_default]
+Compiling architecture behavioral of entity xil_defaultlib.beispielGate [beispielgate_default]
+Compiling architecture behavioral of entity xil_defaultlib.testbranch
+Built simulation snapshot testBranch_behav

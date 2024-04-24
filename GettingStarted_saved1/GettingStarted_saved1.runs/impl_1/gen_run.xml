@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7z020clg400-1" LaunchTime="1713868966">
+  <File Type="OPT-HWDEF" Name="tasterXor.hwdef"/>
+  <File Type="ROUTE-BUS-SKEW" Name="tasterXor_bus_skew_routed.rpt"/>
+  <File Type="PA-DCP" Name="tasterXor.dcp"/>
+  <File Type="ROUTE-PWR" Name="tasterXor_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="tasterXor.tcl"/>
+  <File Type="BITSTR-BMM" Name="tasterXor_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="tasterXor.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="tasterXor_methodology_drc_routed.rpt"/>
+  <File Type="REPORTS-TCL" Name="tasterXor_reports.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="tasterXor_power_summary_routed.pb"/>
+  <File Type="OPT-DCP" Name="tasterXor_opt.dcp"/>
+  <File Type="OPT-DRC" Name="tasterXor_drc_opted.rpt"/>
+  <File Type="PWROPT-DCP" Name="tasterXor_pwropt.dcp"/>
+  <File Type="PLACE-DCP" Name="tasterXor_placed.dcp"/>
+  <File Type="PLACE-IO" Name="tasterXor_io_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="tasterXor_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="tasterXor_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="tasterXor_control_sets_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="tasterXor_incremental_reuse_pre_placed.rpt"/>
+  <File Type="BG-BIN" Name="tasterXor.bin"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="tasterXor_postplace_pwropt.dcp"/>
+  <File Type="BITSTR-MSK" Name="tasterXor.msk"/>
+  <File Type="PHYSOPT-DCP" Name="tasterXor_physopt.dcp"/>
+  <File Type="BITSTR-RBT" Name="tasterXor.rbt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="tasterXor_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="tasterXor_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="tasterXor_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="tasterXor_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="tasterXor_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="tasterXor_drc_routed.rpx"/>
+  <File Type="BITSTR-LTX" Name="tasterXor.ltx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="tasterXor_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="tasterXor_methodology_drc_routed.pb"/>
+  <File Type="BITSTR-SYSDEF" Name="tasterXor.sysdef"/>
+  <File Type="ROUTE-PWR-RPX" Name="tasterXor_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="tasterXor_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="tasterXor_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="tasterXor_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="tasterXor_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="tasterXor_timing_summary_routed.rpx"/>
+  <File Type="RDI-RDI" Name="tasterXor.vdi"/>
+  <File Type="ROUTE-CLK" Name="tasterXor_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="tasterXor_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="tasterXor_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="tasterXor_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="tasterXor_postroute_physopt_bb.dcp"/>
+  <File Type="BG-BIT" Name="tasterXor.bit"/>
+  <File Type="BITSTR-NKY" Name="tasterXor.nky"/>
+  <File Type="BG-BGN" Name="tasterXor.bgn"/>
+  <File Type="BG-DRC" Name="tasterXor.drc"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PPRDIR/../Sourcecode-20240423/tasterXor.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="tasterXor"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PPRDIR/../Sourcecode-20240423/pinout.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>
