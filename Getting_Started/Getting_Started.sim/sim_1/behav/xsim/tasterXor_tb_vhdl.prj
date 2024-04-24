@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../Sourcecode-20240423/tasterXor.vhd" \
+"../../../../../Sourcecode-20240423/tasterXor_tb.vhd" \
+
+# Do not sort compile order
+nosort

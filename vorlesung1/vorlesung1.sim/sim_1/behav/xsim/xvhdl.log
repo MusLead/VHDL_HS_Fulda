@@ -1,0 +1,8 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/vorlesung1/vorlesung1.srcs/sources_1/new/andGate.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'and_gate'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/vorlesung1/vorlesung1.srcs/sources_1/new/beispielGate.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'beispielGate'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/vorlesung1/vorlesung1.srcs/sources_1/new/xorGate.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'xor_gate'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/vorlesung1/vorlesung1.srcs/sim_1/new/testBranch.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'testBranch'
