@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 24.04.2024 13:45:45
+-- Create Date: 08.05.2024 11:45:59
 -- Design Name: 
--- Module Name: Volladdierer - Behavioral
+-- Module Name: Ripple_Carry_Addierer - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,22 +31,23 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Volladdierer is
+entity Ripple_Carry_Addierer is
 --  Port ( );
-    port(a,b,c: in std_logic; S,Co: out std_logic);
-end Volladdierer;
+generic(sizeBit : integer);
+port(
+    sub: in std_logic;
+    a,b: in std_logic_vector(sizeBit - 1 downto 0); 
+    S: out std_logic_vector(sizeBit - 1 downto 0)
+);
 
-architecture Behavioral of Volladdierer is
-    component halbaddierer is port(a,b: in std_logic; S,Co: out std_logic);
+end Ripple_Carry_Addierer;
+
+architecture Behavioral of Ripple_Carry_Addierer is
+    component Volladdierrer is port(a,b,c: in std_logic; S,Co: out std_logic);
     end component;
-    component orGate is port(a,b: in std_logic; o: out std_logic);
+    component xorGate is port(a,b: in std_logic; o: out std_logic);
     end component;
-    signal sHA_sig,c1_sig,c2_sig: std_logic; --TODO ASK: man braucht keine in, oout, or inout, correct?? nein, das braucht man nicht
 begin
-    ha1_instance: halbaddierer
-        port map(a=>a,b=>b,S=>sHA_sig,Co=>c1_sig);
-    ha2_instance: halbaddierer
-        port map(a=>sHA_sig,b=>c,S=>S,Co=>c2_sig);
-    or_instance: orGate
-        port map(a=>c1_sig,b=>c2_sig,o=>Co);
+    -- coba pakai for in generate 
+
 end Behavioral;
