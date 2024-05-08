@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="ESLab_NetLab-Student" Host="eslab-004" Pid="7936" HostCore="20" HostMemory="034082983936">
-    </Process>
-</ProcessHandle>
