@@ -41,7 +41,7 @@ architecture Behavioral of halbaddierer_tb is
         port(a,b: in std_logic; S,Co: out std_logic);
     end component;
 begin
-    dut: halbaddierer port map(a,b,S,Co);
+    dut: halbaddierer port map(a=>a,b=>b,S=>S,Co=>Co);
     
     a <= '1', '0' after 10 ns, '1' after 20 ns; 
     b <= '0', '1' after 10 ns; 

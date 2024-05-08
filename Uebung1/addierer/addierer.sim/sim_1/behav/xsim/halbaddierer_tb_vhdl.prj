@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../halbaddierer/halbaddierer.srcs/sources_1/new/andGate.vhd" \
+"../../../../../halbaddierer/halbaddierer.srcs/sources_1/new/halbaddierer.vhd" \
+"../../../../../halbaddierer/halbaddierer.srcs/sources_1/new/xorGate.vhd" \
+"../../../../addierer.srcs/sim_1/new/Halbaddierer_tb.vhd" \
+
+# Do not sort compile order
+nosort

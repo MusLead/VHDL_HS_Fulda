@@ -2,3 +2,6 @@ Running: xsim.dir/testBranch_behav/xsimk.exe -simmode gui -wdb testBranch_behav.
 Design successfully loaded
 Design Loading Memory Usage: 8308 KB (Peak: 8308 KB)
 Design Loading CPU Usage: 0 ms
+Simulation completed
+Simulation Memory Usage: 8940 KB (Peak: 8940 KB)
+Simulation CPU Usage: 15 ms
