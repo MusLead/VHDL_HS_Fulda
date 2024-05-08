@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity andGate is
+--  Port ( );
     port(a,b: in std_logic; o: out std_logic);
 end andGate;
 
