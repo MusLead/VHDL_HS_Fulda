@@ -48,20 +48,16 @@ begin
         a <= '1';
         b <= '0';
         c <= '0';
-        wait for 50 ns;
+       wait for 50 ns;
         
-        b <= '1';
-        wait for 50 ns;
+       b <= '1';
+       wait for 50 ns;
         
-        a <= '0';
-        wait for 50 ns;
+       a <= '0';
+       wait for 50 ns;
  
-        b <= '0';
-        wait for 50 ns;
-       
-       
-       
-       
-    end process;
+       b <= '0';
+       wait for 50 ns;
+  end process;
     
 end Behavioral;

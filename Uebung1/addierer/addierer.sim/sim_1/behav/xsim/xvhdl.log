@@ -1,0 +1,6 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/Uebung1/halbaddierer/halbaddierer.srcs/sources_1/new/Volladdierer.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Volladdierer'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/Uebung1/halbaddierer/halbaddierer.srcs/sources_1/new/orGate.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'orGate'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/Uebung1/addierer/addierer.srcs/sim_1/new/Volladdierer_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Volladdierer_tb'

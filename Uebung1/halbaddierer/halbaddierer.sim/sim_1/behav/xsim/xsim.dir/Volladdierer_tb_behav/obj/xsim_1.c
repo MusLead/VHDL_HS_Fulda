@@ -3,14 +3,19 @@
 /*  /   /\/   /                                                       */
 /* /___/  \  /                                                        */
 /* \   \   \/                                                         */
-/*  \   \        Copyright (c) 2003-2013 Xilinx, Inc.                 */
+/*  \   \        Copyright (c) 2003-2020 Xilinx, Inc.                 */
 /*  /   /        All Right Reserved.                                  */
 /* /---/   /\                                                         */
 /* \   \  /  \                                                        */
 /*  \___\/\___\                                                       */
 /**********************************************************************/
 
-
+#if defined(_WIN32)
+ #include "stdio.h"
+ #define IKI_DLLESPEC __declspec(dllimport)
+#else
+ #define IKI_DLLESPEC
+#endif
 #include "iki.h"
 #include <string.h>
 #include <math.h>
@@ -25,14 +30,19 @@
 /*  /   /\/   /                                                       */
 /* /___/  \  /                                                        */
 /* \   \   \/                                                         */
-/*  \   \        Copyright (c) 2003-2013 Xilinx, Inc.                 */
+/*  \   \        Copyright (c) 2003-2020 Xilinx, Inc.                 */
 /*  /   /        All Right Reserved.                                  */
 /* /---/   /\                                                         */
 /* \   \  /  \                                                        */
 /*  \___\/\___\                                                       */
 /**********************************************************************/
 
-
+#if defined(_WIN32)
+ #include "stdio.h"
+ #define IKI_DLLESPEC __declspec(dllimport)
+#else
+ #define IKI_DLLESPEC
+#endif
 #include "iki.h"
 #include <string.h>
 #include <math.h>
@@ -44,19 +54,19 @@
 #endif
 typedef void (*funcp)(char *, char *);
 extern int main(int, char**);
-extern void execute_22(char*, char *);
-extern void execute_12(char*, char *);
-extern void execute_14(char*, char *);
-extern void execute_21(char*, char *);
-extern void vhdl_transfunc_eventcallback(char*, char*, unsigned, unsigned, unsigned, char *);
+IKI_DLLESPEC extern void execute_22(char*, char *);
+IKI_DLLESPEC extern void execute_12(char*, char *);
+IKI_DLLESPEC extern void execute_14(char*, char *);
+IKI_DLLESPEC extern void execute_21(char*, char *);
+IKI_DLLESPEC extern void vhdl_transfunc_eventcallback(char*, char*, unsigned, unsigned, unsigned, char *);
 funcp funcTab[5] = {(funcp)execute_22, (funcp)execute_12, (funcp)execute_14, (funcp)execute_21, (funcp)vhdl_transfunc_eventcallback};
 const int NumRelocateId= 5;
 
 void relocate(char *dp)
 {
 	iki_relocate(dp, "xsim.dir/Volladdierer_tb_behav/xsim.reloc",  (void **)funcTab, 5);
-	iki_vhdl_file_variable_register(dp + 3336);
-	iki_vhdl_file_variable_register(dp + 3392);
+	iki_vhdl_file_variable_register(dp + 3544);
+	iki_vhdl_file_variable_register(dp + 3600);
 
 
 	/*Populate the transaction function pointer field in the whole net structure */
@@ -85,8 +95,6 @@ void sensitize(char *);
 void simulate(char *);
 
 extern SYSTEMCLIB_IMP_DLLSPEC void local_register_implicit_channel(int, char*);
-extern void implicit_HDL_SCinstatiate();
-
 extern SYSTEMCLIB_IMP_DLLSPEC int xsim_argc_copy ;
 extern SYSTEMCLIB_IMP_DLLSPEC char** xsim_argv_copy ;
 
@@ -95,7 +103,7 @@ int main(int argc, char **argv)
     iki_heap_initialize("ms", "isimmm", 0, 2147483648) ;
     iki_set_sv_type_file_path_name("xsim.dir/Volladdierer_tb_behav/xsim.svtype");
     iki_set_crvs_dump_file_path_name("xsim.dir/Volladdierer_tb_behav/xsim.crvsdump");
-    void* design_handle = iki_create_design("xsim.dir/Volladdierer_tb_behav/xsim.mem", (void *)relocate, (void *)sensitize, (void *)simulate, 0, isimBridge_getWdbWriter(), 0, argc, argv);
+    void* design_handle = iki_create_design("xsim.dir/Volladdierer_tb_behav/xsim.mem", (void *)relocate, (void *)sensitize, (void *)simulate, (void*)0, 0, isimBridge_getWdbWriter(), 0, argc, argv);
      iki_set_rc_trial_count(100);
     (void) design_handle;
     return iki_simulate_design();
