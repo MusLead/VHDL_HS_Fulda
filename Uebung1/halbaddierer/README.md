@@ -1,5 +1,5 @@
 
-# VHDL Project
+# VHDL Adder Project
 
 ## Project Overview
 
