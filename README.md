@@ -1,6 +1,8 @@
 # VHDL_1515659
 
+Please when create a file for the future project save the VHDL files separately from the project file. In the future, projectfile will not be commited to reduce parsing xml and simulating from different version. try to creat project adnd add files instead of accesing the vivado files from git.
 
+I might also in the future create a new git and delete this git. The vivado project should acces the data outside from the folder project. The vivado project it self should not be uploaded into git.
 
 ## Getting started
 
