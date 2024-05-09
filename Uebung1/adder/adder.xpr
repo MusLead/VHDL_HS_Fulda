@@ -31,7 +31,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="3"/>
+    <Option Name="WTXSimLaunchSim" Val="11"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -96,7 +96,7 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/Ripple_Carry_Addierer.vhd">
-        <FileInfo>
+        <FileInfo SFType="VHDL2008">
           <Attr Name="ImportPath" Val="$PPRDIR/../src_adder/sources_1/new/Ripple_Carry_Addierer.vhd"/>
           <Attr Name="ImportTime" Val="1715171859"/>
           <Attr Name="UsedIn" Val="synthesis"/>
