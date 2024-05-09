@@ -1,5 +1,5 @@
 # VHDL_1515659
-
+# Do not forget to pull git always into the currently using computer 
 Please when create a file for the future project save the VHDL files separately from the project file. In the future, project file will not be commited to reduce failure parsing xml and simulating from different version. try to creat project adnd add files instead of accesing the vivado files from git.
 
 DO NOT EVER COPY THE SRC FILE INTO PROJECT FILE. LET THE PROJECT FILE ACCESS THE SOURCE FROM EXTERNAL PATH (NOT FORM WITHIN ITS FOLDER)
