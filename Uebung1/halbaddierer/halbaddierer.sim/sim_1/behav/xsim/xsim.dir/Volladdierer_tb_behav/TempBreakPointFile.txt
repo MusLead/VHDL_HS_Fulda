@@ -1,2 +1,0 @@
-Breakpoint File Version 1.0
-48,true,"G:/Agha_VHDL/Uebung1/halbaddierer/halbaddierer.srcs/sim_1/new/Volladdierer_tb.vhd"
