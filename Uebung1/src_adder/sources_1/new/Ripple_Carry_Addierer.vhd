@@ -33,17 +33,16 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity Ripple_Carry_Addierer is
 --  Port ( );
-generic(
-    sizeBit : integer := 4;
-    isSigned: boolean := false
-);
-port(
-    sub: in std_logic;
-    c_out,overflow,forbidden: out std_logic;
-    a,b: in std_logic_vector(sizeBit - 1 downto 0); 
-    S: out std_logic_vector(sizeBit - 1 downto 0)
-);
-
+    generic(
+        sizeBit : integer := 4;
+        isSigned: boolean := false
+    );
+    port(
+        sub: in std_logic;
+        c_out,overflow,forbidden: out std_logic;
+        a,b: in std_logic_vector(sizeBit - 1 downto 0); 
+        S: out std_logic_vector(sizeBit - 1 downto 0)
+    );
 end Ripple_Carry_Addierer;
 
 architecture Behavioral of Ripple_Carry_Addierer is
@@ -55,14 +54,13 @@ architecture Behavioral of Ripple_Carry_Addierer is
     end component;
     
     component Comparator is 
-    generic(n : integer := sizeBit);
-    port(a,b: in std_logic_vector(sizeBit - 1 downto 0); b_greater_a: out std_logic);
+        generic(n : integer := sizeBit);
+        port(a,b: in std_logic_vector(sizeBit - 1 downto 0); b_greater_a: out std_logic);
     end component; 
     
     signal carry: std_logic_vector(sizeBit downto 0);
     signal y_n,S_default: std_logic_vector(sizeBit - 1 downto 0);
-    signal a_unsigned, b_unsigned: unsigned(sizeBit - 1 downto 0); -- Conversion for safe comparison
-    signal res, sub_gen: std_logic;
+    signal res: std_logic;
 
 begin
     -- implement for in generate
