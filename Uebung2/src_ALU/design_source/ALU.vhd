@@ -31,11 +31,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity ALU is
+entity ALU is 
 --  Port ( );
     generic(
         sizeBit : integer := 4;
-        isSigned: boolean := false
+        isSigned: boolean := true
     );
     port(
         codex: in std_logic_vector(2 downto 0);
