@@ -34,8 +34,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity Ripple_Carry_Addierer is
 --  Port ( );
     generic(
-        sizeBit : integer := 4;
-        isSigned: boolean := false
+        sizeBit : integer := 4
     );
     port(
         sub: in std_logic;
@@ -86,30 +85,18 @@ begin
                 Co => carry(i+1)
             );
             
-     end generate;
-     S <= S_default; -- Default assignment
-     c_out <= carry(sizeBit);
-     
-    -- Overflow logic based on the signedness
-    overflow_checker: if isSigned generate
-        -- When signed
-        xor_checker: xorGate
-            port map(
-                a => carry(sizeBit), 
-                b => carry(sizeBit - 1),
-                o => overflow
-            );
-    else generate -- this else feature for 2008
-        -- When unsigned
-        -- Special case for unsigned subtraction where b > a
-      compare_ab: Comparator
-          port map(a => a,b => b, b_greater_a => res);
-      forbidden <= res and sub; --fixme why the line is red with X?
-       
-      overflow <= carry(sizeBit) and not sub; -- this only works for addition, how about subs?  
-    end generate overflow_checker;
-        
+    end generate;
     
+    S <= S_default; -- Default assignment
+    c_out <= carry(sizeBit);
+    
+    xor_checker: xorGate
+    port map(
+        a => carry(sizeBit), 
+        b => carry(sizeBit - 1),
+        o => overflow
+    );
+
      
 
 end Behavioral;

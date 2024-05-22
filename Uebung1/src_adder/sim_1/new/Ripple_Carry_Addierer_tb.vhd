@@ -39,8 +39,7 @@ architecture Behavioral of Ripple_Carry_Addierer_tb is
     constant sizeBit:integer := 8;
     component Ripple_Carry_Addierer
         generic(
-            sizeBit:integer;
-            isSigned:boolean := true
+            sizeBit:integer
         );
         port(
             sub: in std_logic;

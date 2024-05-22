@@ -32,8 +32,7 @@ ARCHITECTURE behavior OF ALU_tb IS
     -- Component Declaration for the Unit Under Test (UUT)
     COMPONENT ALU
         GENERIC(
-            sizeBit : INTEGER := 4;
-            isSigned: BOOLEAN := true
+            sizeBit : INTEGER := 4
         );
         PORT(
             codex: IN  std_logic_vector(2 downto 0);
@@ -68,13 +67,15 @@ ARCHITECTURE behavior OF ALU_tb IS
     stimulus: PROCESS
     BEGIN
         -- Initialize Inputs
-        a <= "0011";
-        b <= "0101";
+        a <= "0000";
+        b <= "0000";
         codex <= "000"; -- Testing addition
         wait for 10 ns;
+        --ASSERT C /= '1' REPORT "" SEVERITY NOTE;
         
-        
-        codex <= "001"; -- Testing subtraction
+        a <= "0011";
+        b <= "0101";        
+        codex <= "000"; -- Testing subtraction
         wait for 10 ns;
 
         codex <= "010"; -- Testing AND

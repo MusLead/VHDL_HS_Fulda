@@ -34,8 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ALU is 
 --  Port ( );
     generic(
-        sizeBit : integer := 4;
-        isSigned: boolean := true
+        sizeBit : integer := 4
     );
     port(
         codex: in std_logic_vector(2 downto 0);
@@ -50,8 +49,7 @@ architecture Behavioral of ALU is
 
     component Ripple_Carry_Addierer is 
         generic(
-            sizeBit: integer := sizeBit;
-            isSigned: boolean := isSigned
+            sizeBit: integer := sizeBit
         );
         port(
             sub: in std_logic;
@@ -68,8 +66,8 @@ architecture Behavioral of ALU is
         );
     end component;
 
-    signal thisOverflowAdd, thisForbiddenAdd, c_add: std_logic;
-    signal thisOverflowSub, thisForbiddenSub, c_sub : std_logic;
+    signal thisOverflowAdd, thisOverflowCarrySub, thisForbiddenAdd, c_add: std_logic;
+    signal thisOverflowSub, thisOverflowCarryAdd, thisForbiddenSub, c_sub : std_logic;
     signal thisOutput: std_logic_vector(sizeBit - 1 downto 0);
     signal thisFlag: std_logic_vector(3 downto 0);
     signal thisResAdd, thisResSub, thisResXOR, 
@@ -77,7 +75,7 @@ architecture Behavioral of ALU is
         thisResNAND, thisResNOT: std_logic_vector(sizeBit - 1 downto 0); 
 begin
     
-    C <= '0';
+    --C <= '0';
     thisFlag <= (others => '0');
 
     add_arithmatic: Ripple_Carry_Addierer
@@ -86,8 +84,8 @@ begin
             a => a,
             b => b,
             S => thisResAdd,
-            c_out => c_add, -- todo refactoring this into c_add for example
-            overflow => thisOverflowAdd, -- TODO change the signal name!!! or just flag?
+            c_out => c_add, 
+            overflow => thisOverflowAdd, 
             forbidden => thisForbiddenAdd
         );
         
@@ -107,7 +105,7 @@ begin
     end generate;
     
     and_instance: for i in 0 to sizeBit - 1 generate
-        thisResXOR(i) <= a(i) xor b(i);
+        thisResAND(i) <= a(i) and b(i);
     end generate;
     
     or_instance: for i in 0 to sizeBit - 1 generate
@@ -136,29 +134,16 @@ begin
             thisResNAND when   "110",
             thisResNOT when    "111",
             (others => '0') when others;
-
-    with codex select
-        C <= c_add when "000",
-             c_sub when "001",
-             '0' when others;
-
-    zero_flag: for i in 0 to sizeBit - 1 generate
-        thisFlag(0) <= '1' when thisOutput(i) = '0' else '0';
-    end generate;
-
-    with thisOutput(sizeBit - 1) select
-        thisFlag(1) <= '1' when '1',
-               '0' when others;
-
-    parity_flag: for i in 0 to sizeBit - 1 generate
-        halfadder_instance: halbaddierer
-            port map(
-                a => O(i),
-                b => thisFlag(2),
-                S => thisFlag(2)
-            );
-    end generate;
     
+    thisOverflowCarryAdd <= c_add or thisOverflowAdd;
+    thisOverflowCarrySub <= c_sub or thisOverflowSub;
+    
+    with codex select
+        C <= thisOverflowCarryAdd when "000",
+             thisOverflowCarrySub when "001",
+             '0' when others;
+     
+
     flag <= thisFlag;
     O <= thisOutput;
     
