@@ -70,13 +70,15 @@ architecture Behavioral of ALU is
 
     signal thisOverflowAdd, thisForbiddenAdd, c_add: std_logic;
     signal thisOverflowSub, thisForbiddenSub, c_sub : std_logic;
+    signal thisOutput: std_logic_vector(sizeBit - 1 downto 0);
+    signal thisFlag: std_logic_vector(3 downto 0);
     signal thisResAdd, thisResSub, thisResXOR, 
         thisResOR, thisResNOR, thisResAND, 
         thisResNAND, thisResNOT: std_logic_vector(sizeBit - 1 downto 0); 
 begin
     
     C <= '0';
-    flag <= (others => '0');
+    thisFlag <= (others => '0');
 
     add_arithmatic: Ripple_Carry_Addierer
         port map(
@@ -125,10 +127,10 @@ begin
     end generate;
     
     with codex select
-        O <= thisResAdd when  "000",
+        thisOutput <= thisResAdd when  "000",
             thisResSub when    "001",
             thisResXOR when    "100",
-            thisResOR when     "001",
+            thisResOR when     "010",
             thisResAND when    "011",
             thisResNOR when    "101",
             thisResNAND when   "110",
@@ -141,22 +143,24 @@ begin
              '0' when others;
 
     zero_flag: for i in 0 to sizeBit - 1 generate
-        flag(0) <= '1' when O(i) = '0' else '0';
+        thisFlag(0) <= '1' when thisOutput(i) = '0' else '0';
     end generate;
 
-    with O(sizeBit - 1) select
-        flag(1) <= '1' when '1',
+    with thisOutput(sizeBit - 1) select
+        thisFlag(1) <= '1' when '1',
                '0' when others;
 
     parity_flag: for i in 0 to sizeBit - 1 generate
         halfadder_instance: halbaddierer
             port map(
                 a => O(i),
-                b => flag(2),
-                S => flag(2)
+                b => thisFlag(2),
+                S => thisFlag(2)
             );
     end generate;
-
+    
+    flag <= thisFlag;
+    O <= thisOutput;
     
 
          

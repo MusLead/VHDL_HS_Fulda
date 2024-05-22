@@ -99,7 +99,7 @@ begin
                 b => carry(sizeBit - 1),
                 o => overflow
             );
-    else generate -- this else fiture for 2008
+    else generate -- this else feature for 2008
         -- When unsigned
         -- Special case for unsigned subtraction where b > a
       compare_ab: Comparator

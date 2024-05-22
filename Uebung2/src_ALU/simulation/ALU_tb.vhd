@@ -33,7 +33,7 @@ ARCHITECTURE behavior OF ALU_tb IS
     COMPONENT ALU
         GENERIC(
             sizeBit : INTEGER := 4;
-            isSigned: BOOLEAN := FALSE
+            isSigned: BOOLEAN := true
         );
         PORT(
             codex: IN  std_logic_vector(2 downto 0);
@@ -72,7 +72,8 @@ ARCHITECTURE behavior OF ALU_tb IS
         b <= "0101";
         codex <= "000"; -- Testing addition
         wait for 10 ns;
-
+        
+        
         codex <= "001"; -- Testing subtraction
         wait for 10 ns;
 
