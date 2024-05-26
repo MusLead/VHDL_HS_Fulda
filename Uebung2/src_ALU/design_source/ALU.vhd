@@ -53,7 +53,7 @@ architecture Behavioral of ALU is
         );
         port(
             sub: in std_logic;
-            c_out,overflow,forbidden: out std_logic;
+            c_out,overflow: out std_logic;
             a,b: in std_logic_vector(sizeBit - 1 downto 0); 
             S: out std_logic_vector(sizeBit - 1 downto 0)
         );
@@ -65,19 +65,37 @@ architecture Behavioral of ALU is
             S,Co: out std_logic
         );
     end component;
-
-    signal thisOverflowAdd, thisOverflowCarrySub, thisForbiddenAdd, c_add: std_logic;
-    signal thisOverflowSub, thisOverflowCarryAdd, thisForbiddenSub, c_sub : std_logic;
+    
+    component ParityChecker is 
+        generic(
+            sizeBit : integer := sizeBit
+        );
+        port(
+            a: in std_logic_vector(sizeBit - 1 downto 0); 
+            isEven: out std_logic
+        );
+    end component;
+    
+    component ZeroChecker is 
+        generic(
+            sizeBit : integer := sizeBit
+        );
+        port(
+            a: in std_logic_vector(sizeBit - 1 downto 0); 
+            isZero: out std_logic
+        );
+    end component;
+    
+    signal thisParity, thisZero: std_logic;
+    signal thisOverflowAdd, thisOverflowCarrySub, c_add: std_logic;
+    signal thisOverflowSub, thisOverflowCarryAdd, c_sub : std_logic;
     signal thisOutput: std_logic_vector(sizeBit - 1 downto 0);
     signal thisFlag: std_logic_vector(3 downto 0);
     signal thisResAdd, thisResSub, thisResXOR, 
         thisResOR, thisResNOR, thisResAND, 
         thisResNAND, thisResNOT: std_logic_vector(sizeBit - 1 downto 0); 
 begin
-    
-    --C <= '0';
-    thisFlag <= (others => '0');
-
+   
     add_arithmatic: Ripple_Carry_Addierer
         port map(
             sub => '0',
@@ -85,8 +103,7 @@ begin
             b => b,
             S => thisResAdd,
             c_out => c_add, 
-            overflow => thisOverflowAdd, 
-            forbidden => thisForbiddenAdd
+            overflow => thisOverflowAdd
         );
         
     sub_arithmatic: Ripple_Carry_Addierer
@@ -96,8 +113,7 @@ begin
             b => b,
             S => thisResSub,
             c_out => c_sub,
-            overflow => thisOverflowSub,
-            forbidden => thisForbiddenSub
+            overflow => thisOverflowSub
         );
     
     xor_instance: for i in 0 to sizeBit - 1 generate
@@ -135,20 +151,37 @@ begin
             thisResNOT when    "111",
             (others => '0') when others;
     
+    with codex select
+        C <= c_add when "000",
+             c_sub when "001",
+             '0' when others;
+     
+    O <= thisOutput;
+    
+    parity_check: ParityChecker 
+        port map(
+            a => thisOutput,
+            isEven => thisParity
+        );
+     
+     zero_check: ZeroChecker
+        port map(
+            a => thisOutput,
+            isZero => thisZero
+        );
+    
+    
     thisOverflowCarryAdd <= c_add or thisOverflowAdd;
     thisOverflowCarrySub <= c_sub or thisOverflowSub;
     
     with codex select
-        C <= thisOverflowCarryAdd when "000",
-             thisOverflowCarrySub when "001",
-             '0' when others;
-     
-
-    flag <= thisFlag;
-    O <= thisOutput;
-    
-
-         
+       flag(0) <= thisOverflowCarryAdd when "000",
+                  thisOverflowCarrySub when "001",
+                  '0' when others;
+             
+     flag(1) <= thisZero;
+     flag(2) <= thisOutput(sizeBit - 1);
+     flag(3) <= thisParity; 
          
          
          

@@ -38,7 +38,7 @@ entity Ripple_Carry_Addierer is
     );
     port(
         sub: in std_logic;
-        c_out,overflow,forbidden: out std_logic;
+        c_out,overflow: out std_logic;
         a,b: in std_logic_vector(sizeBit - 1 downto 0); 
         S: out std_logic_vector(sizeBit - 1 downto 0)
     );
@@ -50,11 +50,6 @@ architecture Behavioral of Ripple_Carry_Addierer is
     end component;
     
     component xorGate is port(a,b: in std_logic; o: out std_logic);
-    end component;
-    
-    component Comparator is 
-        generic(n : integer := sizeBit);
-        port(a,b: in std_logic_vector(sizeBit - 1 downto 0); b_greater_a: out std_logic);
     end component; 
     
     signal carry: std_logic_vector(sizeBit downto 0);
@@ -62,10 +57,8 @@ architecture Behavioral of Ripple_Carry_Addierer is
     signal res: std_logic;
 
 begin
-    -- implement for in generate
+    -- this is for determining VOlladdierer whther the operation is adding or subtracting
     carry(0) <= sub;
-    forbidden <= '0'; -- checker for unsigned 
-    -- carry <= (others => '0');
     
     y_instance: for i in 0 to sizeBit - 1 generate
     

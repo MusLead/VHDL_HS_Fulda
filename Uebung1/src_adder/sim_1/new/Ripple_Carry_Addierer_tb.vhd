@@ -43,13 +43,13 @@ architecture Behavioral of Ripple_Carry_Addierer_tb is
         );
         port(
             sub: in std_logic;
-            c_out, overflow, forbidden: out std_logic;
+            c_out, overflow: out std_logic;
             a,b: in std_logic_vector(sizeBit - 1 downto 0); 
             S: out std_logic_vector(sizeBit - 1 downto 0)
         );
    -- Signals for interfacing with the instantiated component
    end component;
-   signal sub, c_out, overflow, forbidden: std_logic;
+   signal sub, c_out, overflow: std_logic;
    signal a, b, S: std_logic_vector(sizeBit - 1 downto 0);  -- Using sizeBit
 
 -- Instantiate the Ripple_Carry_Addierer
@@ -62,8 +62,7 @@ begin
             a => a,
             b => b,
             S => S,
-            overflow => overflow,
-            forbidden => forbidden
+            overflow => overflow
         );
 
 -- Test stimulus process

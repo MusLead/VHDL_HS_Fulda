@@ -75,7 +75,7 @@ ARCHITECTURE behavior OF ALU_tb IS
         
         a <= "0011";
         b <= "0101";        
-        codex <= "000"; -- Testing subtraction
+        codex <= "001"; -- Testing subtraction
         wait for 10 ns;
 
         codex <= "010"; -- Testing AND
