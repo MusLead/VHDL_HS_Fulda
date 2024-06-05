@@ -35,7 +35,7 @@ entity DFF is
 end DFF;
 
 architecture Behavioral of DFF is
-    signal current_state: std_logic_vector(sizeBit - 1 downto 0);
+    signal current_state: std_logic_vector(sizeBit - 1 downto 0) := (others => '0');
 begin
     
     speicher_p : process(clk_i)

@@ -28,9 +28,10 @@ end DFF_tb;
 architecture Behavioral of DFF_tb is
 
     -- Component Declaration for the Unit Under Test (UUT)
+    constant sizeBit : integer := 8;
     component DFF
         generic(
-            sizeBit: integer := 8
+            sizeBit: integer := sizeBit
         );
         port(
             d_i : in std_logic_vector(sizeBit - 1 downto 0);
@@ -40,11 +41,11 @@ architecture Behavioral of DFF_tb is
     end component;
 
     -- Inputs
-    signal d_i : std_logic_vector(7 downto 0) := (others => '0');
+    signal d_i : std_logic_vector(sizeBit - 1 downto 0) := (others => '0');
     signal clk_i : std_logic := '0';
 
     -- Outputs
-    signal d_o : std_logic_vector(7 downto 0);
+    signal d_o : std_logic_vector(sizeBit - 1 downto 0);
 
     -- Clock period definitions
     constant clk_period : time := 10 ns;
@@ -54,7 +55,7 @@ begin
     -- Instantiate the Unit Under Test (UUT)
     uut: DFF
         generic map (
-            sizeBit => 8
+            sizeBit => sizeBit
         )
         port map (
             d_i => d_i,
