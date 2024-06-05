@@ -69,7 +69,8 @@ architecture Behavioral of NumberCounter is
     end component;
     
    signal  c_out, overflow: std_logic;
-   signal current_state, next_state, currentEnable: std_logic_vector(sizeBit - 1 downto 0);  -- Using sizeBit
+   signal currentEnable: std_logic_vector(sizeBit - 1 downto 0); 
+   signal current_state, next_state: std_logic_vector(sizeBit - 1 downto 0); 
 begin
 
 
@@ -85,5 +86,15 @@ begin
             S => next_state,
             overflow => overflow
         );
+        
+    reg: RSFF
+        generic map (sizeBit => sizeBit)
+        port map (
+            s_i => next_state,
+            r_i => rst_i,
+            q_o => current_state,
+            clk_i => clk_i
+        );
      
+     q_o <= current_state;
 end Behavioral;
