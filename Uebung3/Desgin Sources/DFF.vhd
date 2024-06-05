@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 05.06.2024 10:50:30
 -- Design Name: 
--- Module Name: DFF - Behavioral
+-- Module Name: DFF (D-FlipFlop) - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -22,22 +22,28 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity DFF is
 --  Port ( );
+    generic(
+        sizeBit: integer := 8
+    );
+    port(
+        d_i : in std_logic_vector(sizeBit - 1 downto 0);
+        d_o : out std_logic_vector(sizeBit - 1 downto 0);
+        clk_i : in std_logic
+    );
 end DFF;
 
 architecture Behavioral of DFF is
-
+    signal current_state: std_logic_vector(sizeBit - 1 downto 0);
 begin
-
-
+    
+    speicher_p : process(clk_i)
+    begin
+        if clk_i'event and clk_i = '1' then
+            current_state <= d_i;
+        end if;
+    end process;
+    
+    d_o <= current_state;
 end Behavioral;
