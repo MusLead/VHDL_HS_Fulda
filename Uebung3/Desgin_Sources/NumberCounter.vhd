@@ -7,6 +7,7 @@ entity NumberCounter is
         clk_i      : in  std_logic;
         rst_i      : in  std_logic;
         enable_i   : in  std_logic;
+        up_ndown_i : in  std_logic;
         q_o        : out std_logic_vector(4 downto 0)
     );
 end NumberCounter;
@@ -40,12 +41,14 @@ architecture Behavioral of NumberCounter is
     
     signal current_end_state: std_logic_vector(sizeBit - 1 downto 0);
     signal current_state, next_state, input_b: std_logic_vector(sizeBit - 1 downto 0); 
-    signal c_out, overflow: std_logic;
+    signal c_out, overflow, isSub: std_logic;
 begin
-    process(next_state, enable_i)
+    process(next_state, enable_i, up_ndown_i)
     begin
-        if unsigned(next_state) = 10 then
+        if up_ndown_i = '1' and signed(next_state) >= 10 then
             current_state <= (others => '0');
+        elsif up_ndown_i = '0' and signed(next_state) < 0 then
+            current_state <= "01001";
         else
             current_state <= next_state;
         end if;
@@ -57,11 +60,13 @@ begin
         end if;
        
     end process;
-
+    
+    isSub <= not up_ndown_i;
+    
     counter: Ripple_Carry_Addierer
         generic map(sizeBit => sizeBit)
         port map(
-            sub => '0',
+            sub => isSub,
             c_out => c_out,
             a => current_end_state,
             b => input_b,  -- Increment by 1
