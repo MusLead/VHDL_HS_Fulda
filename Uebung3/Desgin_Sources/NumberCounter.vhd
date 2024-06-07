@@ -43,23 +43,15 @@ architecture Behavioral of NumberCounter is
     signal current_state, next_state, input_b: std_logic_vector(sizeBit - 1 downto 0); 
     signal c_out, overflow, isSub: std_logic;
 begin
-    process(next_state, enable_i, up_ndown_i)
+
+    input_proc: process(enable_i)
     begin
-        if up_ndown_i = '1' and signed(next_state) >= 10 then
-            current_state <= (others => '0');
-        elsif up_ndown_i = '0' and signed(next_state) < 0 then
-            current_state <= "01001";
-        else
-            current_state <= next_state;
-        end if;
-        
         if enable_i = '1' then
             input_b <= "00001";
         else 
             input_b <= (others => '0');
         end if;
-       
-    end process;
+    end process input_proc;
     
     isSub <= not up_ndown_i;
     
@@ -73,6 +65,17 @@ begin
             S => next_state,
             overflow => overflow
         );
+        
+    middle_proc: process(next_state, up_ndown_i)
+    begin
+        if up_ndown_i = '1' and signed(next_state) >= 10 then
+            current_state <= (others => '0');
+        elsif up_ndown_i = '0' and signed(next_state) < 0 then
+            current_state <= "01001";
+        else
+            current_state <= next_state;
+        end if;
+    end process middle_proc;
     
     reg: RSFF
         generic map(sizeBit => sizeBit)
