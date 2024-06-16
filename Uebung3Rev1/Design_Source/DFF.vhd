@@ -11,13 +11,18 @@ entity D_FlipFlop is
 end D_FlipFlop;
 
 architecture Behavioral of D_FlipFlop is
+    signal Q_sig : STD_LOGIC := '0'; -- this initialised '0' is crucial, if input is not initialized, the output will be '0' by default
 begin
     process(clk, rst)
     begin
-        if rst = '1' then
-            Q <= '0';
-        elsif rising_edge(clk) then
-            Q <= D;
+        if rising_edge(clk) then
+            if rst = '1' then
+                Q_sig <= '0';
+            else
+                Q_sig <= D;
+            end if;
         end if;
     end process;
+
+    Q <= Q_sig;
 end Behavioral;
