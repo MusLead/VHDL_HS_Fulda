@@ -65,15 +65,15 @@ def sympy_expr_to_VHDL_logic_string(expr):
 
 
 # Compute the DNF terms for each output column (d0, d1, d2, d3)
-dnf_terms_d0 = get_dnf_terms(df, 'd0')
-dnf_terms_d1 = get_dnf_terms(df, 'd1')
-dnf_terms_d2 = get_dnf_terms(df, 'd2')
 dnf_terms_d3 = get_dnf_terms(df, 'd3')
+dnf_terms_d2 = get_dnf_terms(df, 'd2')
+dnf_terms_d1 = get_dnf_terms(df, 'd1')
+dnf_terms_d0 = get_dnf_terms(df, 'd0')
 
-print('d0:', dnf_terms_d0)
-print('d1:', dnf_terms_d1)  
+print('d3:', dnf_terms_d3)
 print('d2:', dnf_terms_d2)  
-print('d3:', dnf_terms_d3)  
+print('d1:', dnf_terms_d1)  
+print('d0:', dnf_terms_d0)  
 
 print('----------------------------------------')
 
@@ -81,39 +81,39 @@ print('----------------------------------------')
 A, B, C, D, U = symbols('A B C D U')
 
 # Compute the DNF expressions for each output column
-dnf_d0 = SOPform([A, B, C, D, U], dnf_terms_d0)
-dnf_d1 = SOPform([A, B, C, D, U], dnf_terms_d1)
-dnf_d2 = SOPform([A, B, C, D, U], dnf_terms_d2)
-dnf_d3 = SOPform([A, B, C, D, U], dnf_terms_d3)
+dnf_d0 = SOPform([A, B, C, D, U], dnf_terms_d3)
+dnf_d1 = SOPform([A, B, C, D, U], dnf_terms_d2)
+dnf_d2 = SOPform([A, B, C, D, U], dnf_terms_d1)
+dnf_d3 = SOPform([A, B, C, D, U], dnf_terms_d0)
 
 # Print the DNF expressions
-print('d0:', dnf_d0)
-print('d1:', dnf_d1)
-print('d2:', dnf_d2)
 print('d3:', dnf_d3)
+print('d2:', dnf_d2)
+print('d1:', dnf_d1)
+print('d0:', dnf_d0)
 
 # Convert the DNF expressions to a custom string format
-dnf_d0_arithmetic = sympy_expr_to_arithmetic_string(dnf_d0)
-dnf_d1_arithmetic = sympy_expr_to_arithmetic_string(dnf_d1)
-dnf_d2_arithmetic = sympy_expr_to_arithmetic_string(dnf_d2)
 dnf_d3_arithmetic = sympy_expr_to_arithmetic_string(dnf_d3)
+dnf_d2_arithmetic = sympy_expr_to_arithmetic_string(dnf_d2)
+dnf_d1_arithmetic = sympy_expr_to_arithmetic_string(dnf_d1)
+dnf_d0_arithmetic = sympy_expr_to_arithmetic_string(dnf_d0)
 
 print('----------------------------------------')
 # Print the airthmetic string format of the DNF expressions
-print('d0 (custom and sorted):', dnf_d0_arithmetic,)
-print('d1 (custom and sorted):', dnf_d1_arithmetic)
+print('d3 (custom and sorted):', dnf_d3_arithmetic,)
 print('d2 (custom and sorted):', dnf_d2_arithmetic)
-print('d3 (custom and sorted):', dnf_d3_arithmetic)
+print('d1 (custom and sorted):', dnf_d1_arithmetic)
+print('d0 (custom and sorted):', dnf_d0_arithmetic)
 
 print('----------------------------------------')
 # Print the custom string format of the DNF expressions
-dnf_d0_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d0)
-dnf_d1_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d1)
-dnf_d2_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d2)   
 dnf_d3_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d3)
+dnf_d2_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d2)
+dnf_d1_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d1)   
+dnf_d0_vhdl = sympy_expr_to_VHDL_logic_string(dnf_d0)
 
-print('d0 (VHDL):', dnf_d0_vhdl, '\n')
-print('d1 (VHDL):', dnf_d1_vhdl, '\n')
-print('d2 (VHDL):', dnf_d2_vhdl, '\n')
-print('d3 (VHDL):', dnf_d3_vhdl, '\n')
+print('d3 (VHDL):', dnf_d0_vhdl, '\n')
+print('d2 (VHDL):', dnf_d1_vhdl, '\n')
+print('d1 (VHDL):', dnf_d2_vhdl, '\n')
+print('d0 (VHDL):', dnf_d3_vhdl, '\n')
 

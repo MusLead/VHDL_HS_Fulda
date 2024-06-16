@@ -1,0 +1,7 @@
+d3 (VHDL): (B and C and D and U and not(A)) or (A and D and not(B) and not(C) and not(U)) or (A and U and not(B) and not(C) and not(D)) or (not(A) and not(B) and not(C) and not(D) and not(U)) 
+
+d2 (VHDL): (B and C and not(A) and not(D)) or (B and D and not(A) and not(U)) or (B and U and not(A) and not(C)) or (C and D and U and not(A) and not(B)) or (A and not(B) and not(C) and not(D) and not(U)) 
+
+d1 (VHDL): (C and D and not(A) and not(U)) or (C and U and not(A) and not(D)) or (D and U and not(A) and not(C)) or (A and not(B) and not(C) and not(D) and not(U)) or (B and not(A) and not(C) and not(D) and not(U)) 
+
+d0 (VHDL): (not(A) and not(D)) or (not(B) and not(C) and not(D)) 
