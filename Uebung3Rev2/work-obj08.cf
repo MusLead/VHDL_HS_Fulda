@@ -1,0 +1,16 @@
+v 4
+file . "Simulation/NumCounter_7Segment_tb.vhd" "88ea734aaf909a693dac7b8d1aa0ea760c30099f" "20240616145850.961":
+  entity numcounter_segment7_tb at 1( 0) + 0 on 39;
+  architecture behavioral of numcounter_segment7_tb at 9( 146) + 0 on 40;
+file . "Design_Source/NumCounter_Segment7.vhd" "fcbbd89f447edab316a881bed439d07ce63eef82" "20240616145850.925":
+  entity numcounter_segment7 at 22( 477) + 0 on 35;
+  architecture behavioral of numcounter_segment7 at 45( 1122) + 0 on 36;
+file . "Design_Source/DFF.vhd" "d3ed231baa647f6135c599fd9da9d21c311f3475" "20240616145850.876":
+  entity d_flipflop at 1( 0) + 0 on 31;
+  architecture behavioral of d_flipflop at 13( 212) + 0 on 32;
+file . "Design_Source/Mod10_Counter_Sync.vhd" "798ea8efd9c62620962ea1717a5baa47f4c2a82c" "20240616145850.904":
+  entity mod10_counter_sync at 1( 0) + 0 on 33;
+  architecture behavioral of mod10_counter_sync at 16( 512) + 0 on 34;
+file . "Design_Source/BCD_to_7Segment.vhd" "5ceb6fecd1ba3437e6ac60cc0076c4b4b2bbfbc3" "20240616145850.943":
+  entity bcd_to_7segment at 1( 0) + 0 on 37;
+  architecture behavioral of bcd_to_7segment at 11( 260) + 0 on 38;

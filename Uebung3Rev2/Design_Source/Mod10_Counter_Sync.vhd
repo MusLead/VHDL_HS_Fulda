@@ -14,6 +14,16 @@ entity Mod10_Counter_Sync is
 end Mod10_Counter_Sync;
 
 architecture Behavioral of Mod10_Counter_Sync is
+
+    component D_FlipFlop is
+        Port (
+            clk : in STD_LOGIC;
+            rst : in STD_LOGIC;
+            D   : in STD_LOGIC;
+            Q   : out STD_LOGIC
+        );
+    end component;
+
     signal internal_q  : STD_LOGIC_VECTOR(3 downto 0);
     signal d_ff_inputs : STD_LOGIC_VECTOR(3 downto 0);
     signal A, B, C, D, U : STD_LOGIC;
@@ -28,7 +38,7 @@ begin
     d_ff_inputs(3) <= (B and C and D and U and not(A)) or (A and D and not(B) and not(C) and not(U)) or (A and U and not(B) and not(C) and not(D)) or (not(A) and not(B) and not(C) and not(D) and not(U));
     
     -- Generate the D flip-flops
-    dff_0: entity work.D_FlipFlop
+    dff_0:  D_FlipFlop
         port map (
             clk => clk,
             rst => rst_i,
@@ -36,7 +46,7 @@ begin
             Q   => D
         );
     
-    dff_1: entity work.D_FlipFlop
+    dff_1:  D_FlipFlop
         port map (
             clk => clk,
             rst => rst_i,
@@ -44,7 +54,7 @@ begin
             Q   => C
         );
 
-    dff_2: entity work.D_FlipFlop
+    dff_2:  D_FlipFlop
         port map (
             clk => clk,
             rst => rst_i,
@@ -52,7 +62,7 @@ begin
             Q   => B
         );
 
-    dff_3: entity work.D_FlipFlop
+    dff_3:  D_FlipFlop
         port map (
             clk => clk,
             rst => rst_i,
