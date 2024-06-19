@@ -29,10 +29,13 @@ begin
             digit_sel  => tb_digit_sel
         );
     
-    -- Clock process definitions
-    clk_process : process    
+        -- Clock process definitions
+    clk_process :process
     begin
-        tb_clk <= not tb_clk after clk_period / 2;
+        tb_clk <= '0';
+        wait for clk_period/2;
+        tb_clk <= '1';
+        wait for clk_period/2;
     end process;
 
     -- Stimulus process
@@ -46,7 +49,7 @@ begin
         -- Enable the counter
         tb_enable <= '1';
         wait for 100 ns; -- Run with enable high
-        tb_enable <= '0';
+        -- tb_enable <= '0';
 
         -- Test up counting
         tb_up_ndown <= '1'; -- Set to count up
