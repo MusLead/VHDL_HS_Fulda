@@ -24,8 +24,8 @@ architecture Behavioral of Seven_Segment_Driver is
         );
     end component;
 
-    -- Declare D_FlipFlop component
-    component D_FlipFlop
+    -- Declare D_FlipFlop_NBits component
+    component D_FlipFlop_NBits
         Generic (N : natural := 2);
         Port (
             clk : in STD_LOGIC;
@@ -42,7 +42,7 @@ architecture Behavioral of Seven_Segment_Driver is
 begin
 
     -- Instance of D_FlipFlop for managing digit_clk
-    digit_clk_ff: D_FlipFlop
+    digit_clk_ff: D_FlipFlop_NBits
         generic map (N => 2)
         port map (
             clk => clk,
