@@ -3,7 +3,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity System_Integration is
-
+    Generic (
+        N_Counter : integer := 31_250_000; -- 125 MHz / 2 Hz = 62.5 per perios and divided by two!
+        N_Display : integer := 1_000); -- 125 MHz / 2 Hz = 62.5 per perios and divided by four!
     Port (
         clk        : in  STD_LOGIC;
         rst        : in  STD_LOGIC;
@@ -22,7 +24,7 @@ begin
 
     -- Instantiate Clock Divider for Multi_Digit_Counter
     clock_divider_counter: entity work.Taktteiler
-        generic map (N => 10)  -- Example division factor
+        generic map (N => N_Counter)  
         port map (
             clk_i    => clk,
             enable_o => enable_counter
@@ -43,7 +45,7 @@ begin
 
     -- Instantiate Clock Divider for Seven_Segment_Driver
     clock_divider_display: entity work.Taktteiler
-        generic map (N => 2)  -- Example division factor for display refresh
+        generic map (N => N_Display)  
         port map (
             clk_i    => clk,
             enable_o => enable_display
