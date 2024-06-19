@@ -10,8 +10,8 @@ entity Seven_Segment_Driver is
         tens        : in  STD_LOGIC_VECTOR(3 downto 0);
         hundreds    : in  STD_LOGIC_VECTOR(3 downto 0);
         thousands   : in  STD_LOGIC_VECTOR(3 downto 0);
-        SEG         : out STD_LOGIC_VECTOR (6 downto 0);
-        digit_sel   : out STD_LOGIC_VECTOR (3 downto 0)
+        SEG         : out STD_LOGIC_VECTOR(6 downto 0);
+        digit_sel   : out STD_LOGIC_VECTOR(3 downto 0)
     );
 end Seven_Segment_Driver;
 
@@ -19,25 +19,40 @@ architecture Behavioral of Seven_Segment_Driver is
 
     component BCD_to_7Segment is
         Port (
-            BCD : in  STD_LOGIC_VECTOR (3 downto 0);
-            SEG : out STD_LOGIC_VECTOR (6 downto 0)
+            BCD : in  STD_LOGIC_VECTOR(3 downto 0);
+            SEG : out STD_LOGIC_VECTOR(6 downto 0)
+        );
+    end component;
+
+    -- Declare D_FlipFlop component
+    component D_FlipFlop
+        Generic (N : natural := 2);
+        Port (
+            clk : in STD_LOGIC;
+            rst : in STD_LOGIC;
+            D   : in STD_LOGIC_VECTOR(1 downto 0);
+            Q   : out STD_LOGIC_VECTOR(1 downto 0)
         );
     end component;
 
     signal digit_clk     : STD_LOGIC_VECTOR(1 downto 0) := "00";
+    signal next_digit_clk: STD_LOGIC_VECTOR(1 downto 0);
     signal current_digit : STD_LOGIC_VECTOR(3 downto 0);
 
 begin
 
-    -- Clock divider for multiplexing the digits
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            digit_clk <= "00";
-        elsif rising_edge(clk) then
-            digit_clk <= digit_clk + 1;
-        end if;
-    end process;
+    -- Instance of D_FlipFlop for managing digit_clk
+    digit_clk_ff: D_FlipFlop
+        generic map (N => 2)
+        port map (
+            clk => clk,
+            rst => rst,
+            D   => next_digit_clk,
+            Q   => digit_clk
+        );
+
+    -- Logic to determine the next state of digit_clk
+    next_digit_clk <= digit_clk + 1;
 
     -- Multiplexing logic for digit selection
     process(digit_clk, ones, tens, hundreds, thousands)
