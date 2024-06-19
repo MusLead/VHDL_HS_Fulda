@@ -15,17 +15,20 @@ end Taktteiler;
 
 architecture Behavioral of Taktteiler is
     signal counter : integer := 0;
+    signal out_sig : std_logic := '1';
 begin
+    
     process (clk_i)
     begin
         if rising_edge(clk_i) then
             if counter = (N-1) then
-                enable_o <= '1';
+                out_sig <= '1';
                 counter <= 0;
             else
-                enable_o <= '0';
+                out_sig <= '0';
                 counter <= counter + 1;
             end if;
         end if;
     end process;
+    enable_o <= out_sig;
 end Behavioral;
