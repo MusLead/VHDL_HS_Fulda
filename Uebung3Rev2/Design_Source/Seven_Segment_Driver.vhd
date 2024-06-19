@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity Seven_Segment_Driver is
     Port (
         clk         : in  STD_LOGIC;
-        rst         : in  STD_LOGIC;
+        rst         : in  STD_LOGIC; -- TODO: do we really need this rst? or we can  just throw it out?
         ones        : in  STD_LOGIC_VECTOR(3 downto 0);
         tens        : in  STD_LOGIC_VECTOR(3 downto 0);
         hundreds    : in  STD_LOGIC_VECTOR(3 downto 0);
