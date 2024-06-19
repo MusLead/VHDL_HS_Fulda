@@ -16,7 +16,7 @@ entity Seven_Segment_Driver is
 end Seven_Segment_Driver;
 
 architecture Behavioral of Seven_Segment_Driver is
-
+    constant sizeBit_digit_clk : integer := 2;
     component BCD_to_7Segment is
         Port (
             BCD : in  STD_LOGIC_VECTOR(3 downto 0);
@@ -26,7 +26,7 @@ architecture Behavioral of Seven_Segment_Driver is
 
     -- Declare D_FlipFlop_NBits component
     component D_FlipFlop_NBits
-        Generic (N : natural := 2);
+        Generic (N : integer := sizeBit_digit_clk);
         Port (
             clk : in STD_LOGIC;
             rst : in STD_LOGIC;
@@ -35,8 +35,8 @@ architecture Behavioral of Seven_Segment_Driver is
         );
     end component;
 
-    signal digit_clk     : STD_LOGIC_VECTOR(1 downto 0) := "00";
-    signal next_digit_clk: STD_LOGIC_VECTOR(1 downto 0);
+    signal digit_clk     : STD_LOGIC_VECTOR(sizeBit_digit_clk - 1 downto 0) := "00";
+    signal next_digit_clk: STD_LOGIC_VECTOR(sizeBit_digit_clk - 1 downto 0);
     signal current_digit : STD_LOGIC_VECTOR(3 downto 0);
 
 begin
@@ -52,7 +52,7 @@ begin
         );
 
     -- Logic to determine the next state of digit_clk
-    next_digit_clk <= digit_clk + 1;
+    next_digit_clk <= std_logic_vector(unsigned(digit_clk) + 1);
 
     -- Multiplexing logic for digit selection
     process(digit_clk, ones, tens, hundreds, thousands)

@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity System_Integration is
+
     Port (
         clk        : in  STD_LOGIC;
         rst        : in  STD_LOGIC;
@@ -35,13 +36,14 @@ begin
             enable_i   => enable,
             up_ndown_i => up_ndown,
             ones_o     => ones,
+            tens_o     => tens,
             hundreds_o => hundreds,
             thousands_o=> thousands
         );
 
     -- Instantiate Clock Divider for Seven_Segment_Driver
     clock_divider_display: entity work.Taktteiler
-        generic map (N => 100)  -- Example division factor for display refresh
+        generic map (N => 2)  -- Example division factor for display refresh
         port map (
             clk_i    => clk,
             enable_o => enable_display

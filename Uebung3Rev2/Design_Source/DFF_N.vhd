@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Declare the entity with generic to specify the number of bits N
 entity D_FlipFlop_NBits is
-    Generic (N : natural := 8); -- Default to an 8-bit flip-flop, can be changed as required
+    Generic (N : integer := 8); -- Default to an 8-bit flip-flop, can be changed as required
     Port (
         clk : in STD_LOGIC;
         rst : in STD_LOGIC;

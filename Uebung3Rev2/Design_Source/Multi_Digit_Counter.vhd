@@ -9,6 +9,7 @@ entity Multi_Digit_Counter is
         enable_i   : in STD_LOGIC;
         up_ndown_i : in STD_LOGIC;  -- 1 for count up, 0 for count down
         ones_o     : out STD_LOGIC_VECTOR(3 downto 0);
+        tens_o     : out STD_LOGIC_VECTOR(3 downto 0);
         hundreds_o : out STD_LOGIC_VECTOR(3 downto 0);
         thousands_o: out STD_LOGIC_VECTOR(3 downto 0)
     );
@@ -47,8 +48,15 @@ begin
         );
 
     -- Enable the tens counter when ones counter rolls over (either from 9 to 0 when counting up or from 0 to 9 when counting down)
-    enable_tens <= (ones_count = "1001" and up_ndown_i = '1' and enable_i = '1') or
-                   (ones_count = "0000" and up_ndown_i = '0' and enable_i = '1');
+    tens_process: process(ones_count, up_ndown_i, enable_i)
+    begin 
+        if (ones_count = "1001" and up_ndown_i = '1' and enable_i = '1') or (ones_count = "0000" and up_ndown_i = '0' and enable_i = '1') 
+        then 
+             enable_tens <= '1';
+        else 
+             enable_tens <= '0';
+        end if;
+    end process tens_process;
 
     -- Instantiate the tens counter
     tens_counter: Mod10_Counter_Sync
@@ -57,13 +65,21 @@ begin
             rst_i      => rst_i,
             enable_i   => enable_tens,
             up_ndown_i => up_ndown_i,
-            q_o        => hundreds_count
+            q_o        => tens_count
         );
 
     -- Enable the hundreds counter when tens counter rolls over (either from 9 to 0 when counting up or from 0 to 9 when counting down)
-    enable_hundreds <= (hundreds_count = "1001" and up_ndown_i = '1' and enable_tens = '1') or
-                       (hundreds_count = "0000" and up_ndown_i = '0' and enable_tens = '1');
-
+    hunderds_process: process(tens_count, up_ndown_i, enable_tens)
+    begin 
+        if (tens_count = "1001" and up_ndown_i = '1' and enable_tens = '1') or (tens_count = "0000" and up_ndown_i = '0' and enable_tens = '1') 
+        then 
+             enable_hundreds <= '1';
+        else 
+             enable_hundreds <= '0';
+        end if;
+    end process hunderds_process;
+    
+    
     -- Instantiate the hundreds counter
     hundreds_counter: Mod10_Counter_Sync
         port map (
@@ -71,12 +87,19 @@ begin
             rst_i      => rst_i,
             enable_i   => enable_hundreds,
             up_ndown_i => up_ndown_i,
-            q_o        => thousands_count
+            q_o        => hundreds_count
         );
 
     -- Enable the thousands counter when hundreds counter rolls over (either from 9 to 0 when counting up or from 0 to 9 when counting down)
-    enable_thousands <= (thousands_count = "1001" and up_ndown_i = '1' and enable_hundreds = '1') or
-                        (thousands_count = "0000" and up_ndown_i = '0' and enable_hundreds = '1');
+    thousands_process: process(hundreds_count, up_ndown_i, enable_hundreds)
+    begin 
+        if (hundreds_count = "1001" and up_ndown_i = '1' and enable_hundreds = '1') or (hundreds_count = "0000" and up_ndown_i = '0' and enable_hundreds = '1')
+        then 
+             enable_thousands <= '1';
+        else 
+             enable_thousands <= '0';
+        end if;
+    end process thousands_process;
 
     -- Instantiate the thousands counter
     thousands_counter: Mod10_Counter_Sync
@@ -90,6 +113,7 @@ begin
 
     -- Output assignments
     ones_o     <= ones_count;
+    tens_o     <= tens_count;
     hundreds_o <= hundreds_count;
     thousands_o<= thousands_count;
 
