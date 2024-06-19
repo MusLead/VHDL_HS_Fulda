@@ -15,7 +15,10 @@ architecture Behavioral of tb_System_Integration is
     signal tb_SEG        : STD_LOGIC_VECTOR(6 downto 0);
     signal tb_digit_sel  : STD_LOGIC_VECTOR(3 downto 0);
 
-    -- Instantiate the System_Integration
+    -- Clock generation
+    constant clk_period : time := 10 ns; -- Adjust the clock period as necessary
+begin
+     -- Instantiate the System_Integration
     uut: entity work.System_Integration
         port map (
             clk        => tb_clk,
@@ -25,14 +28,15 @@ architecture Behavioral of tb_System_Integration is
             SEG        => tb_SEG,
             digit_sel  => tb_digit_sel
         );
-
-    -- Clock generation
-    constant clk_period : time := 10 ns; -- Adjust the clock period as necessary
+    
+    -- Clock process definitions
+    clk_process : process    
     begin
         tb_clk <= not tb_clk after clk_period / 2;
     end process;
 
-    -- Test process
+    -- Stimulus process
+    stim_proc: process
     begin
         -- Reset the system
         tb_rst <= '1';
