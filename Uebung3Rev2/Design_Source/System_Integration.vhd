@@ -12,7 +12,7 @@ entity System_Integration is
         enable     : in  STD_LOGIC;
         up_ndown   : in  STD_LOGIC;
         SEG        : out STD_LOGIC_VECTOR(6 downto 0);
-        digit_sel  : out STD_LOGIC_VECTOR(3 downto 0)
+        digit_sel  : out STD_LOGIC_VECTOR(7 downto 0)
     );
 end System_Integration;
 

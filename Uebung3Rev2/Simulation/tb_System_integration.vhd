@@ -13,7 +13,7 @@ architecture Behavioral of tb_System_Integration is
     signal tb_enable     : STD_LOGIC := '0';
     signal tb_up_ndown   : STD_LOGIC := '0';
     signal tb_SEG        : STD_LOGIC_VECTOR(6 downto 0);
-    signal tb_digit_sel  : STD_LOGIC_VECTOR(3 downto 0);
+    signal tb_digit_sel  : STD_LOGIC_VECTOR(7 downto 0);
 
     -- Clock generation
     constant clk_period : time := 10 ns; -- Adjust the clock period as necessary

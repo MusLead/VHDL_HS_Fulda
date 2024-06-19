@@ -91,10 +91,10 @@ set_property -dict { PACKAGE_PIN L19   IOSTANDARD LVCMOS33 } [get_ports { rst }]
 
 ## Seven Segment Displays, data is active low, enable is active high
 
-set_property -dict { PACKAGE_PIN R17   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[3] }]; # most left   # ck_io[11]
-set_property -dict { PACKAGE_PIN T16   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[2] }];               # ck_io[10]
-set_property -dict { PACKAGE_PIN V18   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[1] }];               # ck_io[09]
-set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[0] }];               # ck_io[08]
+set_property -dict { PACKAGE_PIN R17   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[7] }]; # most left   # ck_io[11]
+set_property -dict { PACKAGE_PIN T16   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[6] }];               # ck_io[10]
+set_property -dict { PACKAGE_PIN V18   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[5] }];               # ck_io[09]
+set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { digit_sel[4] }];               # ck_io[08]
 set_property -dict { PACKAGE_PIN U7    IOSTANDARD LVCMOS33 } [get_ports { digit_sel[3] }];               # ck_io[29]
 set_property -dict { PACKAGE_PIN V6    IOSTANDARD LVCMOS33 } [get_ports { digit_sel[2] }];               # ck_io[28]
 set_property -dict { PACKAGE_PIN V5    IOSTANDARD LVCMOS33 } [get_ports { digit_sel[1] }];               # ck_io[27]
