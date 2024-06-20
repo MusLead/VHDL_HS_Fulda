@@ -27,7 +27,7 @@ architecture Behavioral of Multi_Digit_Counter is
         );
     end component;
 
-    component D_FlipFlop is
+    component D_FlipFlop_MS is
         Port (
             clk : in STD_LOGIC;
             rst : in STD_LOGIC;
@@ -66,10 +66,10 @@ begin
         );
 
     -- Generate rollover signals for the ones counter
-    ones_rollover <= '1' when ((ones_count = "1001" and up_ndown_i = '1') or (ones_count = "0000" and up_ndown_i = '0')) and enable_i = '1' else '0';
+    ones_rollover <= '1' when ((ones_count = "1000" and up_ndown_i = '1') or (ones_count = "0001" and up_ndown_i = '0')) and enable_i = '1' else '0';
 
     -- D flip-flop to synchronize the enable signal for tens counter
-    dff_tens: D_FlipFlop
+    dff_tens: D_FlipFlop_MS
         port map (
             clk => clk_i,
             rst => rst_i,
@@ -77,7 +77,7 @@ begin
             Q   => enable_tens_ff
         );
 
-    enable_tens <= enable_tens_ff and enable_i;
+    enable_tens <= enable_tens_ff;
 
     -- Instantiate the tens counter
     tens_counter: Mod10_Counter_Sync
@@ -93,7 +93,7 @@ begin
     tens_rollover <= '1' when ((tens_count = "1001" and up_ndown_i = '1') or (tens_count = "0000" and up_ndown_i = '0')) and enable_tens = '1' else '0';
 
     -- D flip-flop to synchronize the enable signal for hundreds counter
-    dff_hundreds: D_FlipFlop
+    dff_hundreds: D_FlipFlop_MS
         port map (
             clk => clk_i,
             rst => rst_i,
@@ -101,7 +101,7 @@ begin
             Q   => enable_hundreds_ff
         );
 
-    enable_hundreds <= enable_hundreds_ff and enable_tens;
+    enable_hundreds <= enable_hundreds_ff;
 
     -- Instantiate the hundreds counter
     hundreds_counter: Mod10_Counter_Sync
@@ -117,7 +117,7 @@ begin
     hundreds_rollover <= '1' when ((hundreds_count = "1001" and up_ndown_i = '1') or (hundreds_count = "0000" and up_ndown_i = '0')) and enable_hundreds = '1' else '0';
 
     -- D flip-flop to synchronize the enable signal for thousands counter
-    dff_thousands: D_FlipFlop
+    dff_thousands: D_FlipFlop_MS
         port map (
             clk => clk_i,
             rst => rst_i,
@@ -125,7 +125,7 @@ begin
             Q   => enable_thousands_ff
         );
 
-    enable_thousands <= enable_thousands_ff and enable_hundreds;
+    enable_thousands <= enable_thousands_ff;
 
     -- Instantiate the thousands counter
     thousands_counter: Mod10_Counter_Sync

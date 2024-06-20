@@ -10,6 +10,7 @@ entity Mod10_Counter_Sync is
         enable_i   : in STD_LOGIC;
         up_ndown_i : in STD_LOGIC; -- 1 for count up, 0 for count down
         q_o        : out STD_LOGIC_VECTOR(3 downto 0)
+        -- overflow_o : out STD_LOGIC
     );
 end Mod10_Counter_Sync;
 
@@ -24,10 +25,9 @@ architecture Behavioral of Mod10_Counter_Sync is
         );
     end component;
 
-    signal internal_q  : STD_LOGIC_VECTOR(3 downto 0);
-    signal d_ff_inputs : STD_LOGIC_VECTOR(3 downto 0);
+    signal internal_q, d_ff_inputs  : STD_LOGIC_VECTOR(3 downto 0);
     signal A, B, C, D, U : STD_LOGIC;
-    signal clk : STD_LOGIC;
+    signal clk, overflow, overflow_i : STD_LOGIC;
 begin
     
     clk <= (enable_i or rst_i) and clk_i;
@@ -75,6 +75,17 @@ begin
     internal_q(2) <= B;
     internal_q(3) <= A;
 
+    overflow_i <= (A and not(B) and not(C) and D and U) or (not(A) and not(B) and not(C) and not(D) and not(U));
+    -- dff_overflow: D_FlipFlop
+    --     port map (
+    --         clk => clk_i,
+    --         rst => rst_i,
+    --         D   => overflow_i,
+    --         Q   => overflow_o
+    --     );
+
     -- Output assignment
     q_o <= internal_q;
+
+
 end Behavioral;
