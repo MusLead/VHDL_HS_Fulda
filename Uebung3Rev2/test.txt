@@ -1,4 +1,4 @@
-hdl -a --std=08 -fsynopsys Design_Source/DFF.vhd               
+ghdl -a --std=08 -fsynopsys Design_Source/DFF.vhd               
 ghdl -a --std=08 -fsynopsys Design_Source/Mod10_Counter_Sync.vhd
 ghdl -a --std=08 -fsynopsys Design_Source/NumCounter_Segment7.vhd
 ghdl -a --std=08 -fsynopsys Design_Source/BCD_to_7Segment.vhd
