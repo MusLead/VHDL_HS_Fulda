@@ -55,7 +55,6 @@ begin
     SSD: entity work.Seven_Segment_Driver
         port map (
             clk         => enable_display,
-            rst         => rst,
             ones        => ones,
             tens        => tens,
             hundreds    => hundreds,
