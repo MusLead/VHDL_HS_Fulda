@@ -30,7 +30,7 @@ architecture Behavioral of Mod10_Counter_Sync is
     signal clk : STD_LOGIC;
 begin
     
-    clk <= enable_i and clk_i;
+    clk <= (enable_i or rst_i) and clk_i;
     U <= up_ndown_i;
     d_ff_inputs(0) <= (not(A) and not(D)) or (not(B) and not(C) and not(D));
     d_ff_inputs(1) <= (C and D and not(A) and not(U)) or (C and U and not(A) and not(D)) or (D and U and not(A) and not(C)) or (A and not(B) and not(C) and not(D) and not(U)) or (B and not(A) and not(C) and not(D) and not(U));

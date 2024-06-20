@@ -100,6 +100,10 @@ BEGIN
         rst_i <= '1';
         wait for 100 ns;
         rst_i <= '0';
+        
+        wait for 100 ns;
+        up_ndown_i <= '1';  -- Count up
+        
 
         wait; -- will wait forever
     end process;
