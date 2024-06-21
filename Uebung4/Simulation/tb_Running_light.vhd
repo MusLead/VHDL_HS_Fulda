@@ -133,6 +133,15 @@ begin
 
         -- Enable running light again
         enable_i <= '1';
+        wait for 10 ns;
+        enable_i <= '0';
+        wait for 10 ns;
+        enable_i <= '1';
+        wait for 40 ns;
+        enable_i <= '0';
+        rst_i <= '1';
+        wait for 50 ns;
+        rst_i <= '0';
         wait for 100 ns;
 
         -- End simulation
