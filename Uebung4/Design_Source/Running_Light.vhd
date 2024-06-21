@@ -38,7 +38,33 @@ entity Running_Light is
 end Running_Light;
 
 architecture Behavioral of Running_Light is
+    component T_FlipFlop is 
+        port(
+            clk : in STD_LOGIC;
+            rst : in STD_LOGIC;
+            T   : in STD_LOGIC;
+            Q   : out STD_LOGIC
+        );
+    end component
+
     signal current_state, next_state: std_logic_vector(N-1 downto 0);
+    signal enable: std_logic;
 begin
+
+    clk_instance: T_FlipFlop
+        port map(
+            clk => clk_i,
+            rst => '0',
+            T => enable_i,
+            Q => enable
+        );
+
     process(clk_i, rst_i, enable_i)
+    begin
+        if rst_i = '1' then 
+            current_state <= (others => '1');
+        elif enable = '1' then
+            -- shift 0 into the current_state
+
+    end process;
 end Behavioral;
