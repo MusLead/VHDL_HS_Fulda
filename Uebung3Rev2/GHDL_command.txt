@@ -1,0 +1,7 @@
+ghdl -a --std=08 -fsynopsys Design_Source/DFF.vhd               
+ghdl -a --std=08 -fsynopsys Design_Source/Mod10_Counter_Sync.vhd
+ghdl -a --std=08 -fsynopsys Design_Source/NumCounter_Segment7.vhd
+ghdl -a --std=08 -fsynopsys Design_Source/BCD_to_7Segment.vhd
+ghdl -a --std=08 -fsynopsys Simulation/NumCounter_7Segment_tb.vhd
+ghdl -e --std=08 -fsynopsys numcounter_segment7_tb
+ghdl -r --std=08 -fsynopsys numcounter_segment7_tb --stop-time=10ms --vcd=simulation.vcd
