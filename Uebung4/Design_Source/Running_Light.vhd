@@ -43,7 +43,7 @@ architecture Behavioral of Running_Light is
            clk : in STD_LOGIC;
            button : in STD_LOGIC;
            led : out STD_LOGIC
-        )
+        );
     end component;
     
     component D_FlipFlop_NBits is 
@@ -64,12 +64,12 @@ begin
     button_instance: ButtonToggle
         port map(
             clk => clk_i,
-            button => enable_i
+            button => enable_i,
             led => enable
         );
 
 
-    main_process: process(clk_i, rst_i, curr_enable)
+    main_process: process(clk_i, rst_i, enable)
         variable zero_bits : std_logic_vector(N-1 downto 0) := (others => '0'); 
     begin
         if rst_i = '1' then 

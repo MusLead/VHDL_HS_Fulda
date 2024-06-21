@@ -24,7 +24,7 @@ begin
     button_instance: D_FlipFlop 
         port map(
             clk => clk,
-            rst => '0'
+            rst => '0',
             D => button,
             Q => button_last
         );
