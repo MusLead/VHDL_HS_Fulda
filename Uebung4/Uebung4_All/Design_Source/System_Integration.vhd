@@ -72,7 +72,8 @@ begin
             enable_o => enable_running_light
         );
     
-    RR: entity work.Running_Light
+    RL: entity work.Running_Light
+        generic map (N => 8)
         port map (
             clk_i         => enable_running_light,
             rst_i         => rst,
