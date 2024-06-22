@@ -10,11 +10,12 @@ architecture Behavioral of tb_System_Integration is
     -- Signals for interfacing with the device under test
     signal tb_clk        : STD_LOGIC := '0';
     signal tb_rst        : STD_LOGIC := '0';
-    signal tb_enable     : STD_LOGIC := '0';
+    signal tb_enable_MDC : STD_LOGIC := '0';
     signal tb_up_ndown   : STD_LOGIC := '0';
     signal tb_SEG        : STD_LOGIC_VECTOR(6 downto 0);
     signal tb_digit_sel  : STD_LOGIC_VECTOR(7 downto 0);
     signal tb_running_lights : STD_LOGIC_VECTOR(7 downto 0);
+    signal tb_enable_running_light : STD_LOGIC := '0';
 
     -- Clock generation
     constant clk_period : time := 10 ns; -- Adjust the clock period as necessary
@@ -25,7 +26,8 @@ begin
         port map (
             clk             => tb_clk,
             rst             => tb_rst,
-            enable          => tb_enable,
+            enable_MDC      => tb_enable,
+            enable_running_light => tb_enable_running_light,
             up_ndown        => tb_up_ndown,
             SEG             => tb_SEG,
             digit_sel       => tb_digit_sel,
