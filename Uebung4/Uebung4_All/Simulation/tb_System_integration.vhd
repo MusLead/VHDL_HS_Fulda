@@ -26,7 +26,7 @@ begin
         port map (
             clk             => tb_clk,
             rst             => tb_rst,
-            enable_MDC      => tb_enable,
+            enable_MDC      => tb_enable_MDC,
             enable_running_light => tb_enable_running_light,
             up_ndown        => tb_up_ndown,
             SEG             => tb_SEG,
@@ -52,7 +52,7 @@ begin
         tb_rst <= '0';
 
         -- Enable the counter
-        tb_enable <= '1';
+        tb_enable_MDC <= '1';
         wait for 100 ns; -- Run with enable high
         -- tb_enable <= '0';
 
