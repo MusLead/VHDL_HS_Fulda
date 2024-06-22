@@ -53,6 +53,7 @@ begin
 
         -- Enable the counter
         tb_enable_MDC <= '1';
+        tb_enable_running_light <= '1';
         wait for 100 ns; -- Run with enable high
         -- tb_enable <= '0';
 

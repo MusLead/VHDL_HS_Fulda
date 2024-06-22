@@ -61,12 +61,14 @@ architecture Behavioral of Running_Light is
     signal enable: std_logic := '0';
 begin
 
-    button_instance: ButtonToggle
-        port map(
-            clk => clk_i,
-            button => enable_i,
-            led => enable
-        );
+    -- button_instance: ButtonToggle
+    --     port map(
+    --         clk => clk_i,
+    --         button => enable_i,
+    --         led => enable
+    --     );
+
+    enable <= enable_i;
 
 
     main_process: process(clk_i, rst_i, enable)

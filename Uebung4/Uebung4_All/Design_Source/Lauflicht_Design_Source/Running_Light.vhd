@@ -38,13 +38,13 @@ entity Running_Light is
 end Running_Light;
 
 architecture Behavioral of Running_Light is
-    component ButtonToggle is 
-        port(
-           clk : in STD_LOGIC;
-           button : in STD_LOGIC;
-           led : out STD_LOGIC
-        );
-    end component;
+    -- component ButtonToggle is 
+    --     port(
+    --        clk : in STD_LOGIC;
+    --        button : in STD_LOGIC;
+    --        led : out STD_LOGIC
+    --     );
+    -- end component;
     
     component D_FlipFlop_NBits is 
         Generic (N : integer);
@@ -55,26 +55,29 @@ architecture Behavioral of Running_Light is
             Q   : out STD_LOGIC_VECTOR(N-1 downto 0) -- Output Q is also an N-bit vector
         );
     end component;
+
     type direction is (go_left, go_right);
     signal direction_state: direction := go_left;
     signal current_state, next_state: std_logic_vector(N-1 downto 0);
-    signal enable: std_logic := '0';
+    -- signal enable: std_logic := '0';
 begin
 
-    button_instance: ButtonToggle
-        port map(
-            clk => clk_i,
-            button => enable_i,
-            led => enable
-        );
+    -- button_instance: ButtonToggle
+    --     port map(
+    --         clk => clk_i,
+    --         button => enable_i,
+    --         led => enable
+    --     );
+
+    -- enable <= enable_i;
 
 
-    main_process: process(clk_i, rst_i, enable)
+    main_process: process(clk_i, rst_i, enable_i)
         variable zero_bits : std_logic_vector(N-1 downto 0) := (others => '0'); 
     begin
         if rst_i = '1' then 
             next_state <= (others => '0');
-        elsif enable = '1' then
+        elsif enable_i = '1' then
             if current_state = zero_bits then
                 next_state(0) <= '1';
             else

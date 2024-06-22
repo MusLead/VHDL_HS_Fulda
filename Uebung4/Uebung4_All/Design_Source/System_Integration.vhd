@@ -20,9 +20,11 @@ entity System_Integration is
 end System_Integration;
 
 architecture Behavioral of System_Integration is
+    constant lightsNumber: integer := 8;
     -- Signals for counter outputs and clock division
     signal ones, tens, hundreds, thousands: STD_LOGIC_VECTOR(3 downto 0);
     signal clk_counter, clk_display, clk_running_light : STD_LOGIC;
+    signal running_lights_inverse, rl_s: STD_LOGIC_VECTOR(lightsNumber - 1 downto 0);
 begin
 
     -- Instantiate Clock Divider for Multi_Digit_Counter
@@ -73,14 +75,20 @@ begin
             enable_o => clk_running_light
         );
     
+        
     RL: entity work.Running_Light
-        generic map (N => 8)
+        generic map (N => lightsNumber)
         port map (
             clk_i         => clk_running_light,
             rst_i         => rst,
             enable_i      => enable_running_light,
-            lights_o      => running_lights
-        );
+            lights_o      => rl_s
+            );
+                
+    inverse_instance: for i in 0 to lightsNumber - 1 generate
+        running_lights_inverse(i) <= not rl_s(i);
+    end generate;
 
+    running_lights <= running_lights_inverse;
 end Behavioral;
 
