@@ -61,6 +61,7 @@ begin
         tb_rst <= '1';
         tb_up_ndown <= '1'; -- Set to count up
         wait for 100 ns;
+        tb_rst <= '0';
 
         -- Test down counting
         tb_up_ndown <= '0'; -- Set to count down
