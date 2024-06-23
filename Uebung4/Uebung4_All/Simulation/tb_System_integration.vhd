@@ -58,6 +58,7 @@ begin
         -- tb_enable <= '0';
 
         -- Test up counting
+        tb_rst <= '1';
         tb_up_ndown <= '1'; -- Set to count up
         wait for 100 ns;
 
