@@ -8,20 +8,21 @@ entity System_Integration is
         N_Display : integer := 1_000; -- 125 MHz / 125 KHz = 1_000 per periods and divided by two!
         N_Running_Light : integer := 25_000_000); -- 125 MHz / 5 Hz = 25M per periods and divided by 2!
     Port (
-        clk        : in  STD_LOGIC;
-        rst        : in  STD_LOGIC;
-        enable     : in  STD_LOGIC;
-        up_ndown   : in  STD_LOGIC;
-        SEG        : out STD_LOGIC_VECTOR(6 downto 0);
-        digit_sel  : out STD_LOGIC_VECTOR(7 downto 0);
-        running_lights   : out STD_LOGIC_VECTOR(7 downto 0)
+        clk                 : in  STD_LOGIC;
+        rst                 : in  STD_LOGIC;
+        enable_MDC          : in  STD_LOGIC;
+        enable_running_light: in  STD_LOGIC;
+        up_ndown            : in  STD_LOGIC;
+        SEG                 : out STD_LOGIC_VECTOR(6 downto 0);
+        digit_sel           : out STD_LOGIC_VECTOR(7 downto 0);
+        running_lights      : out STD_LOGIC_VECTOR(7 downto 0)
     );
 end System_Integration;
 
 architecture Behavioral of System_Integration is
     -- Signals for counter outputs and clock division
     signal ones, tens, hundreds, thousands: STD_LOGIC_VECTOR(3 downto 0);
-    signal enable_counter, enable_display, enable_running_light : STD_LOGIC;
+    signal clk_counter, clk_display, clk_running_light : STD_LOGIC;
 begin
 
     -- Instantiate Clock Divider for Multi_Digit_Counter
@@ -29,15 +30,15 @@ begin
         generic map (N => N_Counter)  
         port map (
             clk_i    => clk,
-            enable_o => enable_counter
+            enable_o => clk_counter
         );
 
     -- Multi-Digit Counter
     MDC: entity work.Multi_Digit_Counter
         port map (
-            clk_i      => enable_counter,
+            clk_i      => clk_counter,
             rst_i      => rst,
-            enable_i   => enable,
+            enable_i   => enable_MDC,
             up_ndown_i => up_ndown,
             ones_o     => ones,
             tens_o     => tens,
@@ -50,13 +51,13 @@ begin
         generic map (N => N_Display)  
         port map (
             clk_i    => clk,
-            enable_o => enable_display
+            enable_o => clk_display
         );
 
     -- Seven Segment Display Driver
     SSD: entity work.Seven_Segment_Driver
         port map (
-            clk         => enable_display,
+            clk         => clk_display,
             ones        => ones,
             tens        => tens,
             hundreds    => hundreds,
@@ -69,14 +70,15 @@ begin
         generic map (N => N_Running_Light)  
         port map (
             clk_i    => clk,
-            enable_o => enable_running_light
+            enable_o => clk_running_light
         );
     
-    RR: entity work.Running_Light
+    RL: entity work.Running_Light
+        generic map (N => 8)
         port map (
-            clk_i         => enable_running_light,
+            clk_i         => clk_running_light,
             rst_i         => rst,
-            enable_i      => enable,
+            enable_i      => enable_running_light,
             lights_o      => running_lights
         );
 
