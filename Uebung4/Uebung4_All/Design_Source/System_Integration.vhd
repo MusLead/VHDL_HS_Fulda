@@ -4,9 +4,9 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity System_Integration is
     Generic (
-        N_Counter : integer := 31_250_000; -- 125 MHz / 2 Hz = 62.5M per periods and divided by two!
-        N_Display : integer := 1_000; -- 125 MHz / 125 KHz = 1_000 per periods and divided by two!
-        N_Running_Light : integer := 25_000_000); -- 125 MHz / 5 Hz = 25M per periods and divided by 2!
+        N_Counter : integer := 31_250_000; -- 125 MHz / 2 Hz = 62.5M per one period and divided by two!
+        N_Display : integer := 100_000; -- 125 MHz / 625 Hz = 200_000 per one period and divided by two!
+        N_Running_Light : integer := 12_500_000); -- 125 MHz / 5 Hz = 25M per one period and divided by two!
     Port (
         clk                 : in  STD_LOGIC;
         rst                 : in  STD_LOGIC;
@@ -15,7 +15,8 @@ entity System_Integration is
         up_ndown            : in  STD_LOGIC;
         SEG                 : out STD_LOGIC_VECTOR(6 downto 0);
         digit_sel           : out STD_LOGIC_VECTOR(7 downto 0);
-        running_lights      : out STD_LOGIC_VECTOR(7 downto 0)
+        running_lights      : out STD_LOGIC_VECTOR(7 downto 0);
+        point               : out STD_LOGIC
     );
 end System_Integration;
 
@@ -27,7 +28,7 @@ architecture Behavioral of System_Integration is
     signal enable_rl: STD_LOGIC;
 begin
 
-    
+    point <= '1'; -- turn off the point
     -- Instantiate Clock Divider for Multi_Digit_Counter
     clock_divider_counter: entity work.Taktteiler
         generic map (N => N_Counter)  
@@ -84,14 +85,14 @@ begin
     --         led => enable_rl
     --     );
 
-    enable_rl <= enable_running_light;
+    -- enable_rl <= enable_running_light;
     
     RL: entity work.Running_Light
         generic map (N => 8)
         port map (
             clk_i         => clk_running_light,
             rst_i         => rst,
-            enable_i      => enable_rl,
+            enable_i      => enable_running_light,
             lights_o      => running_lights
         );
 

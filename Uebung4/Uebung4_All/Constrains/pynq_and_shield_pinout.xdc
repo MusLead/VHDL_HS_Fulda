@@ -107,7 +107,7 @@ set_property -dict { PACKAGE_PIN T15     IOSTANDARD LVCMOS33 } [get_ports { SEG[
 set_property -dict { PACKAGE_PIN U17     IOSTANDARD LVCMOS33 } [get_ports { SEG[2] }]; # e           # ck_io[07]
 set_property -dict { PACKAGE_PIN V15     IOSTANDARD LVCMOS33 } [get_ports { SEG[1] }]; # f           # ck_io[04]
 set_property -dict { PACKAGE_PIN U13     IOSTANDARD LVCMOS33 } [get_ports { SEG[0] }]; # g           # ck_io[00]
-# set_property -dict { PACKAGE_PIN V13     IOSTANDARD LVCMOS33 } [get_ports { SEG[0] }]; # dp          # ck_io[03]
+set_property -dict { PACKAGE_PIN V13     IOSTANDARD LVCMOS33 } [get_ports { point }]; # dp          # ck_io[03]
 
 
 ## PS2 interface
