@@ -79,7 +79,7 @@ begin
     
     -- button_instance: entity work.ButtonToggle
     --     port map(
-    --         clk => clk,
+    --         clk => clk_running_light,
     --         button => enable_running_light,
     --         led => enable_rl
     --     );

@@ -68,6 +68,7 @@ begin
             led => enable
         );
 
+    -- enable <= '1';
 
     main_process: process(clk_i, rst_i, enable)
         variable zero_bits : std_logic_vector(N-1 downto 0) := (others => '0'); 
@@ -119,7 +120,7 @@ begin
         )
         port map(
             clk => clk_i,
-            rst => rst_i,
+            rst => '0',
             D => invert_result,
             Q => lights_o
         );
