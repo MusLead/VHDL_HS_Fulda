@@ -57,7 +57,7 @@ architecture Behavioral of Running_Light is
     end component;
     type direction is (go_left, go_right);
     signal direction_state: direction := go_left;
-    signal current_state, next_state: std_logic_vector(N-1 downto 0);
+    signal current_state, next_state, invert_result: std_logic_vector(N-1 downto 0);
     signal enable: std_logic := '0';
 begin
 
@@ -108,5 +108,22 @@ begin
             Q => current_state
         );
 
-    lights_o <= current_state;
+    invert_result_loop: for i in 0 to 7 generate
+        invert_result(i) <= not current_state(i);
+    end generate;
+
+    
+    invert_register: D_FlipFlop_NBits
+        generic map (
+            N => N
+        )
+        port map(
+            clk => clk_i,
+            rst => rst_i,
+            D => invert_result,
+            Q => lights_o
+        );
+
+        
+    -- lights_o <= current_state;
 end Behavioral;

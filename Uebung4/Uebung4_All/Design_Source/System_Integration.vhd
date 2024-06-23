@@ -23,8 +23,11 @@ architecture Behavioral of System_Integration is
     -- Signals for counter outputs and clock division
     signal ones, tens, hundreds, thousands: STD_LOGIC_VECTOR(3 downto 0);
     signal clk_counter, clk_display, clk_running_light : STD_LOGIC;
+    signal rl_s: STD_LOGIC_VECTOR(7 downto 0);
+    signal enable_rl: STD_LOGIC;
 begin
 
+    
     -- Instantiate Clock Divider for Multi_Digit_Counter
     clock_divider_counter: entity work.Taktteiler
         generic map (N => N_Counter)  
@@ -72,13 +75,23 @@ begin
             clk_i    => clk,
             enable_o => clk_running_light
         );
+
+    
+    -- button_instance: entity work.ButtonToggle
+    --     port map(
+    --         clk => clk,
+    --         button => enable_running_light,
+    --         led => enable_rl
+    --     );
+
+    enable_rl <= enable_running_light;
     
     RL: entity work.Running_Light
         generic map (N => 8)
         port map (
             clk_i         => clk_running_light,
             rst_i         => rst,
-            enable_i      => enable_running_light,
+            enable_i      => enable_rl,
             lights_o      => running_lights
         );
 
