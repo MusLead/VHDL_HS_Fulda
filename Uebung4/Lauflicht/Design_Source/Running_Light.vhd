@@ -55,18 +55,12 @@ architecture Behavioral of Running_Light is
             Q   : out STD_LOGIC_VECTOR(N-1 downto 0) -- Output Q is also an N-bit vector
         );
     end component;
+
     type direction is (go_left, go_right);
     signal direction_state: direction := go_left;
     signal current_state, next_state: std_logic_vector(N-1 downto 0);
     signal enable: std_logic := '0';
 begin
-
-    -- button_instance: ButtonToggle
-    --     port map(
-    --         clk => clk_i,
-    --         button => enable_i,
-    --         led => enable
-    --     );
 
     enable <= enable_i;
 
