@@ -70,7 +70,10 @@ begin
         tb_up_ndown <= '0'; -- Set to count down
         wait for 100 ns;
         tb_enable_running_light <= '0';
-
+        wait for 50 ns;
+        tb_enable_running_light <= '1';
+        wait for 150 ns;
+        tb_enable_running_light <= '0';
         -- Finish the simulation
         wait;
     end process;

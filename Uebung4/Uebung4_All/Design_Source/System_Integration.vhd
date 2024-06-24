@@ -78,12 +78,12 @@ begin
         );
 
     
-    -- button_instance: entity work.ButtonToggle
-    --     port map(
-    --         clk => clk_running_light,
-    --         button => enable_running_light,
-    --         led => enable_rl
-    --     );
+    button_instance: entity work.ButtonToggle
+        port map(
+            clk => clk_display,
+            button => enable_running_light,
+            led => enable_rl
+        );
 
     -- enable_rl <= enable_running_light;
     
@@ -92,7 +92,7 @@ begin
         port map (
             clk_i         => clk_running_light,
             rst_i         => rst,
-            enable_i      => enable_running_light,
+            enable_i      => enable_rl,
             lights_o      => running_lights
         );
 
