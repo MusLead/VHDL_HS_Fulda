@@ -109,22 +109,5 @@ begin
             Q => current_state
         );
 
-    invert_result_loop: for i in 0 to 7 generate
-        invert_result(i) <= not current_state(i);
-    end generate;
-
-    
-    invert_register: D_FlipFlop_NBits
-        generic map (
-            N => N
-        )
-        port map(
-            clk => clk_i,
-            rst => '0',
-            D => invert_result,
-            Q => lights_o
-        );
-
-        
-    -- lights_o <= current_state;
+    lights_o <= current_state;
 end Behavioral;
