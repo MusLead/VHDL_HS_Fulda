@@ -38,68 +38,51 @@ entity Running_Light is
 end Running_Light;
 
 architecture Behavioral of Running_Light is
-    component ButtonToggle is 
-        port(
-           clk : in STD_LOGIC;
-           button : in STD_LOGIC;
-           led : out STD_LOGIC
-        );
-    end component;
     
-    component D_FlipFlop_NBits is 
-        Generic (N : integer);
-        Port (
-            clk : in STD_LOGIC;
-            rst : in STD_LOGIC;
-            D   : in STD_LOGIC_VECTOR(N-1 downto 0); -- Input D is now an N-bit vector
-            Q   : out STD_LOGIC_VECTOR(N-1 downto 0) -- Output Q is also an N-bit vector
-        );
-    end component;
-
     type direction is (go_left, go_right);
     signal direction_state: direction := go_left;
-    signal current_state, next_state: std_logic_vector(N-1 downto 0);
+    signal current_state, next_state: std_logic_vector(N-1 downto 0) := (others => '1');
     signal enable: std_logic := '0';
+    signal clk_taktteiler: std_logic;
 begin
 
     enable <= enable_i;
 
-
     main_process: process(clk_i, rst_i, enable)
-        variable zero_bits : std_logic_vector(N-1 downto 0) := (others => '0'); 
+        variable non_active : std_logic_vector(N-1 downto 0) := (others => '1'); 
     begin
         if rst_i = '1' then 
-            next_state <= (others => '0');
+            next_state <= (others => '1');
         elsif enable = '1' then
-            if current_state = zero_bits then
-                next_state(0) <= '1';
+            if current_state = non_active then
+                next_state(0) <= '0';
             else
                 case( direction_state ) is
                     when go_left =>
-                        next_state <= std_logic_vector(shift_left(unsigned(current_state), 1));
+                        next_state <= not std_logic_vector(shift_left(unsigned(not current_state), 1));
                     when go_right =>
-                        next_state <= std_logic_vector(shift_right(unsigned(current_state), 1));
+                        next_state <= not std_logic_vector(shift_right(unsigned(not current_state), 1));
                 end case ;
             end if;
         end if;
     end process main_process;
 
-    direction_process: process(clk_i, rst_i)
+    direction_process: process(clk_i, current_state)
     begin
-        if next_state(0) = '1' and direction_state = go_right then
+        if current_state(0) = '0' then
             direction_state <= go_left;
-        elsif next_state(N-1) = '1' and direction_state = go_left then
+        elsif current_state(N-1) = '0' then
             direction_state <= go_right;
         end if;
     end process direction_process;
 
-    output_register: D_FlipFlop_NBits
+    output_register: entity work.D_FlipFlop_NBits
         generic map (
             N => N
         )
         port map(
             clk => clk_i,
-            rst => rst_i,
+            rst => '0',
             D => next_state,
             Q => current_state
         );
