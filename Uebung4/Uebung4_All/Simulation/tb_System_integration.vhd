@@ -12,6 +12,7 @@ architecture Behavioral of tb_System_Integration is
     signal tb_rst        : STD_LOGIC := '0';
     signal tb_enable_MDC : STD_LOGIC := '0';
     signal tb_up_ndown   : STD_LOGIC := '0';
+    signal tb_point      : STD_LOGIC;
     signal tb_SEG        : STD_LOGIC_VECTOR(6 downto 0);
     signal tb_digit_sel  : STD_LOGIC_VECTOR(7 downto 0);
     signal tb_running_lights : STD_LOGIC_VECTOR(7 downto 0);
@@ -31,7 +32,8 @@ begin
             up_ndown        => tb_up_ndown,
             SEG             => tb_SEG,
             digit_sel       => tb_digit_sel,
-            running_lights  => tb_running_lights
+            running_lights  => tb_running_lights,
+            point           => tb_point
         );
     
         -- Clock process definitions
@@ -55,16 +57,23 @@ begin
         tb_enable_MDC <= '1';
         tb_enable_running_light <= '1';
         wait for 100 ns; -- Run with enable high
-        -- tb_enable <= '0';
+        tb_enable_running_light <= '0';
 
         -- Test up counting
+        tb_rst <= '1';
         tb_up_ndown <= '1'; -- Set to count up
         wait for 100 ns;
+        tb_rst <= '0';
+        tb_enable_running_light <= '1';
 
         -- Test down counting
         tb_up_ndown <= '0'; -- Set to count down
         wait for 100 ns;
-
+        tb_enable_running_light <= '0';
+        wait for 50 ns;
+        tb_enable_running_light <= '1';
+        wait for 150 ns;
+        tb_enable_running_light <= '0';
         -- Finish the simulation
         wait;
     end process;

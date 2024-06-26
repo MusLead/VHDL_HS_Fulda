@@ -9,7 +9,7 @@ create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { cl
 
 ##Switches
 set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { up_ndown }]; #IO_L7N_T1_AD2N_35 Sch=sw[0] #up_ndown
-set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { enable }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #enable_i
+set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { enable_MDC }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #enable_i
 
 ##RGB LEDs
 #set_property -dict { PACKAGE_PIN L15   IOSTANDARD LVCMOS33 } [get_ports { led4_b }]; #IO_L22N_T3_AD7N_35 Sch=led4_b
@@ -28,7 +28,7 @@ set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { enable
 ##Buttons
 # set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L4P_T0_35 Sch=btn[0]
 # set_property -dict { PACKAGE_PIN D20   IOSTANDARD LVCMOS33 } [get_ports { btn[1] }]; #IO_L4N_T0_35 Sch=btn[1]
-# set_property -dict { PACKAGE_PIN L20   IOSTANDARD LVCMOS33 } [get_ports { btn[2] }]; #IO_L9N_T1_DQS_AD3N_35 Sch=btn[2]
+set_property -dict { PACKAGE_PIN L20   IOSTANDARD LVCMOS33 } [get_ports { enable_running_light }]; #IO_L9N_T1_DQS_AD3N_35 Sch=btn[2]
 set_property -dict { PACKAGE_PIN L19   IOSTANDARD LVCMOS33 } [get_ports { rst }]; #IO_L9P_T1_DQS_AD3P_35 Sch=btn[3] #rst_i
 
 ##Pmod Header JA
@@ -69,14 +69,14 @@ set_property -dict { PACKAGE_PIN L19   IOSTANDARD LVCMOS33 } [get_ports { rst }]
 
 ## Blue LEDS, active low
 
-# set_property -dict { PACKAGE_PIN Y11   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[7] }]; # most left
-# set_property -dict { PACKAGE_PIN F19   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[6] }];
-# set_property -dict { PACKAGE_PIN W11   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[5] }];      
-# set_property -dict { PACKAGE_PIN C20   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[4] }];                                               
-# set_property -dict { PACKAGE_PIN T5    IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[3] }];                 
-# set_property -dict { PACKAGE_PIN B19   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[2] }];               
-# set_property -dict { PACKAGE_PIN H15   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[1] }];               # ck_sc
-# set_property -dict { PACKAGE_PIN F16   IOSTANDARD LVCMOS33 } [get_ports { n_blue_led[0] }]; #most right   # ck_ss
+set_property -dict { PACKAGE_PIN Y11   IOSTANDARD LVCMOS33 } [get_ports { running_lights[7] }]; # most left
+set_property -dict { PACKAGE_PIN F19   IOSTANDARD LVCMOS33 } [get_ports { running_lights[6] }];
+set_property -dict { PACKAGE_PIN W11   IOSTANDARD LVCMOS33 } [get_ports { running_lights[5] }];      
+set_property -dict { PACKAGE_PIN C20   IOSTANDARD LVCMOS33 } [get_ports { running_lights[4] }];                                               
+set_property -dict { PACKAGE_PIN T5    IOSTANDARD LVCMOS33 } [get_ports { running_lights[3] }];                 
+set_property -dict { PACKAGE_PIN B19   IOSTANDARD LVCMOS33 } [get_ports { running_lights[2] }];               
+set_property -dict { PACKAGE_PIN H15   IOSTANDARD LVCMOS33 } [get_ports { running_lights[1] }];               # ck_sc
+set_property -dict { PACKAGE_PIN F16   IOSTANDARD LVCMOS33 } [get_ports { running_lights[0] }]; #most right   # ck_ss
 
 ## Switches, active low
 
@@ -107,7 +107,7 @@ set_property -dict { PACKAGE_PIN T15     IOSTANDARD LVCMOS33 } [get_ports { SEG[
 set_property -dict { PACKAGE_PIN U17     IOSTANDARD LVCMOS33 } [get_ports { SEG[2] }]; # e           # ck_io[07]
 set_property -dict { PACKAGE_PIN V15     IOSTANDARD LVCMOS33 } [get_ports { SEG[1] }]; # f           # ck_io[04]
 set_property -dict { PACKAGE_PIN U13     IOSTANDARD LVCMOS33 } [get_ports { SEG[0] }]; # g           # ck_io[00]
-# set_property -dict { PACKAGE_PIN V13     IOSTANDARD LVCMOS33 } [get_ports { SEG[0] }]; # dp          # ck_io[03]
+set_property -dict { PACKAGE_PIN V13     IOSTANDARD LVCMOS33 } [get_ports { point }]; # dp          # ck_io[03]
 
 
 ## PS2 interface
