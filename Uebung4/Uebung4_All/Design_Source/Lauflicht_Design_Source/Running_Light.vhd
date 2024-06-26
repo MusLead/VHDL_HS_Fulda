@@ -67,11 +67,11 @@ begin
         end if;
     end process main_process;
 
-    direction_process: process(clk_i, rst_i)
+    direction_process: process(clk_i, current_state)
     begin
-        if next_state(0) = '0' and direction_state = go_right then
+        if current_state(0) = '0' then
             direction_state <= go_left;
-        elsif next_state(N-1) = '0' and direction_state = go_left then
+        elsif current_state(N-1) = '0' then
             direction_state <= go_right;
         end if;
     end process direction_process;
