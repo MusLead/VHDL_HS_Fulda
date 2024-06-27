@@ -57,16 +57,16 @@ begin
                         end if;
                     elsif directio_state = counter_clockwise then
                         if half_step_mode = '1' then 
-                            next_state <= "";
+                            next_state <= "0100";
                         else 
-                            next_state <= "";
+                            next_state <= "0110";
                         end if;
                     end if;
                 when "0001" =>
                     if directio_state = clockwise then 
                         next_state <= "1001";
                     elsif directio_state = counter_clockwise then
-                        next_state <= "";
+                        next_state <= "0101";
                     end if;
                 when "1001" =>
                     if directio_state = clockwise then 
@@ -77,16 +77,16 @@ begin
                         end if;
                     elsif directio_state = counter_clockwise then
                         if half_step_mode = '1' then
-                            next_state <= "";
+                            next_state <= "0001";
                         else
-                            next_state <= "";
+                            next_state <= "0101";
                         end if;
                     end if;
                 when "1000" =>
                     if directio_state = clockwise then
                         next_state <= "1010";
                     elsif directio_state = counter_clockwise then
-                        next_state <= "";
+                        next_state <= "1001";
                     end if;
                 when "1010" =>
                     if directio_state = clockwise then
@@ -97,16 +97,16 @@ begin
                         end if;
                     elsif directio_state = counter_clockwise then
                         if half_step_mode = '1' then
-                            next_state <= "";
+                            next_state <= "1000";
                         else
-                            next_state <= "";
+                            next_state <= "1001";
                         end if;
                     end if;
                 when "0010" =>
                     if directio_state = clockwise then
                         next_state <= "0110";
                     else if directio_state = counter_clockwise then
-                        next_state <= "";
+                        next_state <= "1010";
                     end if;
                 when "0110" =>
                     if directio_state = clockwise then
@@ -117,16 +117,16 @@ begin
                         end if;
                     elsif directio_state = counter_clockwise then
                         if half_step_mode = '1' then
-                            next_state <= "";
+                            next_state <= "0010";
                         else
-                            next_state <= "";
+                            next_state <= "1010";
                         end if;
                     end if;
                 when "0100" =>
                     if directio_state = clockwise then
                         next_state <= "0101";
                     elsif directio_state = counter_clockwise then
-                        next_state <= "";
+                        next_state <= "0110";
                     end if;
                 when others =>
                     next_state <= "0000";
