@@ -42,7 +42,7 @@ end Step_Motor;
 
 architecture Behavioral of Step_Motor is
     type direction is (clockwise, counter_clockwise);
-    signal directio_state : direction := clockwise;
+    signal directio_state : direction;
     signal current_state, next_state : std_logic_vector(3 downto 0) := "0101";
 
 begin
@@ -131,8 +131,10 @@ begin
                     elsif directio_state = counter_clockwise then
                         next_state <= "0110";
                     end if;
-                when others =>
-                    next_state <= "0000";
+                when others => 
+                    -- i.e. the current_state is  "0000" because of the D_FlipFlop.
+                    -- therefore set into 0101 always!
+                    next_state <= "0101";
             end case;
         else
             next_state <= current_state;
