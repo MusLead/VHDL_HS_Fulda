@@ -32,15 +32,40 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity System_Integration is
-    Port ( clk : in STD_LOGIC;
+    Generic(
+        clk_frequency_in_hz : integer := 125_000_000 -- Default frequency of 125 MHz
+    );
+    Port ( 
+           clk : in STD_LOGIC;
            direction_cw : in STD_LOGIC;
-           half_sttep_mode : in STD_LOGIC;
-           rst : in STD_LOGIC);
+           half_step_mode : in STD_LOGIC;
+           rst : in STD_LOGIC,
+           m: out STD_LOGIC_VECTOR(3 downto 0)
+        );
 end System_Integration;
 
 architecture Behavioral of System_Integration is
-
+    signal se_connection : STD_LOGIC;
 begin
 
+    sf_connection <= "00000100"
+
+    SC_instance: entity work.Step_Control
+        generic map (clk_frequency_in_hz => clk_frequency_in_hz)
+        port map(
+            clk => clk,
+            rst => rst,
+            step_frequency => sf_connection,
+            step_enable => se_connection
+        );
+
+    SM_instance: entity work.Step_Motor
+        port map(
+            clk => clk,
+            step_enable => se_connection, 
+            direction_cw => direction_cw,
+            half_step_mode => half_step_mode,
+            output_motor => m;
+        );
 
 end Behavioral;
