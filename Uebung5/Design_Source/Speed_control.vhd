@@ -29,7 +29,7 @@ entity Speed_Control is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        step_frequency : in std_logic_vector(7 downto 0); -- 8-bit input for frequency
+        step_frequency : in integer range 1 to 255 := 1; -- 8-bit input for frequency
         step_enable : out std_logic
     );
 end Speed_Control;
@@ -39,10 +39,10 @@ architecture Behavioral of Speed_Control is
 begin
 
     -- Convert frequency input from std_logic_vector to integer
-    max_count <= clk_frequency_in_hz / (2 * to_integer(unsigned(step_frequency)));
+    max_count <= clk_frequency_in_hz / (2 * step_frequency);
 
     -- Instance of Clock_Divider
-    CLK_DIV: entity work.Clock_Divider
+    CLK_DIV: entity work.Clock_Divider_SM
         port map(
             clk_i => clk,
             reset => reset,

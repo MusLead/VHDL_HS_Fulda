@@ -2,16 +2,16 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity Clock_Divider is
+entity Clock_Divider_SM is
     port (
         clk_i    : in  std_logic;
         reset    : in  std_logic;
         max_count : in integer;  -- Dynamically set the division factor
         enable_o : out std_logic
     );
-end Clock_Divider;
+end Clock_Divider_SM;
 
-architecture Behavioral of Clock_Divider is
+architecture Behavioral of Clock_Divider_SM is
     signal counter : integer := 0;
     signal out_sig : std_logic := '0';
 begin
