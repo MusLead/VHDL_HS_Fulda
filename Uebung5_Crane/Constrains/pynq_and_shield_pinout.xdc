@@ -9,7 +9,7 @@ create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { cl
 
 ##Switches
 set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { direction_cw }]; #IO_L7N_T1_AD2N_35 Sch=sw[0] #direction_cw
-set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { half_step_mode }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #half_step_mode
+# set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { half_step_mode }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #half_step_mode
 
 ##RGB LEDs
 #set_property -dict { PACKAGE_PIN L15   IOSTANDARD LVCMOS33 } [get_ports { led4_b }]; #IO_L22N_T3_AD7N_35 Sch=led4_b
@@ -27,9 +27,9 @@ set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { half_s
 
 ##Buttons
 # set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L4P_T0_35 Sch=btn[0]
- set_property -dict { PACKAGE_PIN D20   IOSTANDARD LVCMOS33 } [get_ports { decrease }]; #IO_L4N_T0_35 Sch=btn[1]
- set_property -dict { PACKAGE_PIN L20   IOSTANDARD LVCMOS33 } [get_ports { increase }]; #IO_L9N_T1_DQS_AD3N_35 Sch=btn[2]
-set_property -dict { PACKAGE_PIN L19   IOSTANDARD LVCMOS33 } [get_ports { rst }]; #IO_L9P_T1_DQS_AD3P_35 Sch=btn[3] #rst_i
+# set_property -dict { PACKAGE_PIN D20   IOSTANDARD LVCMOS33 } [get_ports { decrease }]; #IO_L4N_T0_35 Sch=btn[1]
+# set_property -dict { PACKAGE_PIN L20   IOSTANDARD LVCMOS33 } [get_ports { increase }]; #IO_L9N_T1_DQS_AD3N_35 Sch=btn[2]
+set_property -dict { PACKAGE_PIN L19   IOSTANDARD LVCMOS33 } [get_ports { stop_button }]; #IO_L9P_T1_DQS_AD3P_35 Sch=btn[3] #rst_i
 
 ##Pmod Header JA
 # set_property -dict { PACKAGE_PIN Y18   IOSTANDARD LVCMOS33 } [get_ports { ja[0] }]; #IO_L17P_T2_34 Sch=ja_p[1]

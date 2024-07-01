@@ -45,7 +45,7 @@ begin
     CLK_DIV: entity work.Clock_Divider_SM
         port map(
             clk_i => clk,
-            reset => reset,
+            reset => reset, -- if this '1', enable_o is 0 always
             max_count => max_count,
             enable_o => step_enable
         );

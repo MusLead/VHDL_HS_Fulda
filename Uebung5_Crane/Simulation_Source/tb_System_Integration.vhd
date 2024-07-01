@@ -31,9 +31,6 @@ ARCHITECTURE behavior OF tb_System_Integration IS
     -- Inputs
     signal clk : std_logic := '0';
     signal direction_cw : std_logic := '0';
-    signal half_step_mode : std_logic := '0';
-    signal increase : std_logic := '0';
-    signal decrease : std_logic := '0';
     signal rst : std_logic := '0';
 
     -- Outputs
@@ -55,10 +52,7 @@ BEGIN
     PORT MAP (
         clk => clk,
         direction_cw => direction_cw,
-        half_step_mode => half_step_mode,
-        increase => increase,
-        decrease => decrease,
-        rst => rst,
+        stop_button => rst,
         m => m,
         SEG => SEG,
         digit_sel => digit_sel
@@ -82,25 +76,19 @@ BEGIN
         wait for 50 * clk_period;
         rst <= '0';
         
-        -- Insert stimulus here
-        -- Example sequence of increase and decrease
-        increase <= '1';
-        wait for 20 * clk_period;
-        increase <= '0';
-        wait for 10 * clk_period;
-
-        decrease <= '1';
-        wait for 20 * clk_period;
-        decrease <= '0';
-        wait for 10 * clk_period;
-
         -- Change direction and mode
         direction_cw <= '1';
-        half_step_mode <= '1';
+        wait for 20 * clk_period;
+        
+        wait for 10 * clk_period;
+
+        wait for 20 * clk_period;
+
+        wait for 10 * clk_period;
+
         wait for 20 * clk_period;
 
         direction_cw <= '0';
-        half_step_mode <= '0';
         wait for 20 * clk_period;
 
         -- Finish simulation
