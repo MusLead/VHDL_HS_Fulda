@@ -34,7 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Crane_Control is
     Generic (
         clk_frequency_in_hz : integer := 125_000_000 -- Default frequency of 125 MHz
-    )
+    );
     Port ( 
         direction_cw : in STD_LOGIC;
         stop_input : in STD_LOGIC;
