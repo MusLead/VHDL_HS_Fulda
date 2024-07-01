@@ -43,23 +43,31 @@ architecture Behavioral of SM_Freq_Determiner is
     signal curr, nxt: integer := 1;
 begin
 
-    input_instance_inc: entity work.D_FlipFlop
-        port map (
-            D => increase,
-            rst => '0',
-            clk => clk,
-            Q => incr
-        );
+--    input_instance_inc: entity work.D_FlipFlop
+--        port map (
+--            D => increase,
+--            rst => '0',
+--            clk => clk,
+--            Q => incr
+--        );
 
-    input_instance_dec: entity work.D_FlipFlop
-        port map (
-            D => decrease,
-            rst => '0',
-            clk => clk,
-            Q => decr
-        );
-
-    dec_orInc: process(incr, decr)
+--    input_instance_dec: entity work.D_FlipFlop
+--        port map (
+--            D => decrease,
+--            rst => '0',
+--            clk => clk,
+--            Q => decr
+--        );
+    
+    inp_instance: process(clk)
+    begin
+         if rising_edge(clk) then
+            incr <= increase;
+            decr <= decrease;
+        end if;
+    end process;
+    
+    dec_orInc: process(incr, decr, curr)
     begin
         if curr = 1 or curr = 255 then
             nxt <= curr;

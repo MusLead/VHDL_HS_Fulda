@@ -37,27 +37,33 @@ entity System_Integration is
         clk_frequency_in_hz : integer := 125_000_000 -- Default frequency of 125 MHz
     );
     Port ( 
-           clk : in STD_LOGIC;
-           direction_cw : in STD_LOGIC;
-           half_step_mode : in STD_LOGIC;
-           increase : in STD_LOGIC;
-           decrease : in STD_LOGIC;
-           rst : in STD_LOGIC;
-           m: out STD_LOGIC_VECTOR(3 downto 0);
-           SEG: out STD_LOGIC_VECTOR(6 downto 0);
-           digit_sel: out STD_LOGIC_VECTOR(7 downto 0)
-        );
+       clk : in STD_LOGIC;
+       direction_cw : in STD_LOGIC;
+       half_step_mode : in STD_LOGIC;
+       increase : in STD_LOGIC;
+       decrease : in STD_LOGIC;
+       rst : in STD_LOGIC;
+       m: out STD_LOGIC_VECTOR(3 downto 0);
+       SEG: out STD_LOGIC_VECTOR(6 downto 0);
+       digit_sel: out STD_LOGIC_VECTOR(7 downto 0);
+       led: out STD_LOGIC_VECTOR(1 downto 0)
+    );
 end System_Integration;
 
 architecture Behavioral of System_Integration is
     signal se_connection, clk_display : STD_LOGIC;
     signal sf_connection : integer range 1 to 255 := 1;
+    signal incr, decr: STD_LOGIC;
 begin
-
+    incr <= increase;
+    decr <= decrease;
+    led(0) <= incr;
+    led(1) <= decr;
+    
     FD_instance: entity work.SM_Freq_Determiner
         port map(
-            increase => increase,
-            decrease => decrease,
+            increase => incr,
+            decrease => decr,
             clk => clk,
             freq => sf_connection
         );
