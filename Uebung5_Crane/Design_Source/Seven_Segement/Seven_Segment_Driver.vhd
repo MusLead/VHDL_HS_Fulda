@@ -40,15 +40,15 @@ begin
         case curr_state is
             when ones_state =>
                 next_state <= tens_state;
-                current_digit <= ones;
+                current_digit <= tens;
                 digit_sel <= "11111110"; -- Activate first digit
             when tens_state =>
                 next_state <= hundreds_state;
-                current_digit <= tens;
+                current_digit <= hundreds;
                 digit_sel <= "11111101"; -- Activate second digit
             when hundreds_state =>
                 next_state <= ones_state;
-                current_digit <= hundreds;
+                current_digit <= ones;
                 digit_sel <= "11111011"; -- Activate third digit
         end case;
     end process;

@@ -53,7 +53,7 @@ begin
 
     -- TODO: add magnet function and if the it is not stop then the magnet will always be off!
 
-    FD_instance: entity work.Crane_Control
+    Crane_instance: entity work.Crane_Control
         generic map (
             clk_frequency_in_hz => clk_frequency_in_hz
         )

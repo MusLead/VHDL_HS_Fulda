@@ -55,7 +55,7 @@ begin
     main_process: process(step_enable_signal, curr_steps, direction_cw, curr_frq, curr_steps)
     begin
         if step_enable_signal = '1' then
-            if (curr_steps >= 161 and direction_cw = '1') or 
+            if (curr_steps = 161 and direction_cw = '1') or 
                 (curr_steps = 0 and direction_cw = '0') then
                 
                 -- stop the motor if the steps are at the limit
@@ -81,7 +81,17 @@ begin
                 end if;
 
             end if;
-        end if;
+        else 
+        
+            if not ((curr_steps = 161 and direction_cw = '1') or 
+                (curr_steps = 0 and direction_cw = '0')) then
+                stop_next <= '0';
+            end if; 
+            
+            next_steps <= curr_steps;
+            next_frq <= curr_frq;
+
+        end if; 
     end process;
 
     -- DFF for integer value
