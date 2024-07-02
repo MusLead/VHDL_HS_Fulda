@@ -9,7 +9,7 @@ create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { cl
 
 ##Switches
 set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { up_ndown }]; #IO_L7N_T1_AD2N_35 Sch=sw[0] #up_ndown
-set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { enable_MDC }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #enable_i
+set_property -dict { PACKAGE_PIN M19   IOSTANDARD LVCMOS33 } [get_ports { enable }]; #IO_L7P_T1_AD2P_35 Sch=sw[1] #enable_i
 
 ##RGB LEDs
 #set_property -dict { PACKAGE_PIN L15   IOSTANDARD LVCMOS33 } [get_ports { led4_b }]; #IO_L22N_T3_AD7N_35 Sch=led4_b
