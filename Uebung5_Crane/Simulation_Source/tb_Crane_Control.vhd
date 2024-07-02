@@ -91,7 +91,7 @@ begin
         stop_input <= '0';
 
         -- Test Case 6: Move in CCW direction
-        direction_cw <= '0';
+--        direction_cw <= '0';
         wait for 20 * clk_period;
         
         -- End simulation
