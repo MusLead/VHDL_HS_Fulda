@@ -10,8 +10,7 @@ entity System_Integration is
     Port (
         clk                          : in  STD_LOGIC;
         rst                          : in  STD_LOGIC;
-        enable_MDC     _MDC          : in  STD_LOGIC;
-        enable_running_light: in  STD_LOGIC;
+        enable_MDC            : in  STD_LOGIC;
         enable_running_light: in  STD_LOGIC;
         up_ndown                     : in  STD_LOGIC;
         SEG                          : out STD_LOGIC_VECTOR(6 downto 0);
