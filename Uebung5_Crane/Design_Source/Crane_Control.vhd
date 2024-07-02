@@ -73,7 +73,7 @@ begin
                 end if;
                 
                 -- adjust frequency based on the steps
-                 if (curr_steps >= 31 or curr_steps < 152) then 
+                 if (curr_steps >= 31 and curr_steps < 152) then 
                      next_frq <= 100;
                  elsif (curr_steps >= 152 and direction_cw = '1') or 
                      (curr_steps < 31 and direction_cw = '0') then
