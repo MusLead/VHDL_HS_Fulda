@@ -51,7 +51,7 @@ entity System_Integration is
 end System_Integration;
 
 architecture Behavioral of System_Integration is
-    signal se_connection, clk_display : STD_LOGIC;
+    signal se_connection, clk_display, clk_counter : STD_LOGIC;
     signal sf_connection : integer range 1 to 255 := 1;
     signal incr, decr: STD_LOGIC;
 begin
@@ -60,11 +60,18 @@ begin
     led(0) <= incr;
     led(1) <= decr;
     
+    clock_divider_counter: entity work.Clock_Divider
+        generic map (N => 15_625_000)  
+        port map (
+            clk_i => clk,
+            enable_o => clk_counter
+        );
+        
     FD_instance: entity work.SM_Freq_Determiner
         port map(
             increase => incr,
             decrease => decr,
-            clk => clk,
+            clk => clk_counter,
             freq => sf_connection
         );
 
@@ -100,5 +107,5 @@ begin
             half_step_mode => half_step_mode,
             output_motor => m
         );
-
+        
 end Behavioral;
