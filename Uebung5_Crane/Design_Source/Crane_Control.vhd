@@ -45,13 +45,12 @@ entity Crane_Control is
 end Crane_Control;
 
 architecture Behavioral of Crane_Control is
-    signal curr_steps, next_steps: integer range 0 to 161 := 0; -- 161 curr_steps for 180 degrees
+    signal curr_steps, next_steps: integer range 0 to 180 := 0; -- 161 curr_steps for 180 degrees
     signal curr_frq, next_frq: integer range 1 to 255 := 40;
     signal stop_curr, stop_next, stop_next_res: STD_LOGIC := '0';
     signal step_enable_signal: STD_LOGIC;
 begin
 
-    -- TODO: CHECK again if the stop signal needs flip flop or not
     main_process: process(step_enable_signal, curr_steps, direction_cw, curr_frq, curr_steps)
     begin
         if step_enable_signal = '1' then
@@ -73,45 +72,30 @@ begin
                 end if;
                 
                 -- adjust frequency based on the steps
-                 if (curr_steps >= 31 and curr_steps < 152) then 
-                     next_frq <= 100;
-                 elsif (curr_steps >= 152 and direction_cw = '1') or 
+                 if (curr_steps >= 150 and direction_cw = '1') or 
                      (curr_steps < 31 and direction_cw = '0') then
-                     next_frq <= curr_frq - 2;
-                 else
-                     next_frq <= curr_frq + 2;
+                     if curr_frq > 40 then 
+                        next_frq <= curr_frq - 2;
+                     else 
+                         next_frq <= curr_frq;
+                     end if;
+                  else
+                    if curr_frq < 100 then 
+                        next_frq <= curr_frq + 2;
+                     else 
+                         next_frq <= curr_frq;
+                     end if;
                  end if;
-
-                -- adjust frequency based on the steps (chatGPT)
---                if (curr_steps >= 81 and direction_cw = '1') or 
---                    (curr_steps <= 81 and direction_cw = '0') then
---                    if curr_frq < 100 then
---                        next_frq <= curr_frq + 2;
---                    elsif curr_frq = 100 then
---                        if (curr_steps <= 121 and direction_cw = '1') or 
---                            (curr_steps >= 41 and direction_cw = '0') then
---                            next_frq <= 100; -- Hold at 100 for specified steps
---                        else
---                            next_frq <= curr_frq - 2;
---                        end if;
---                    else
---                        next_frq <= curr_frq - 2;
---                    end if;
---                else
---                    if curr_frq < 100 then
---                        next_frq <= curr_frq + 2;
---                    else
---                        next_frq <= 100;
---                    end if;
---                end if;
-
 
             end if;
         else 
-            if not ((curr_steps = 161 and direction_cw = '1') or 
+            -- to make not always stop if enable signal is 0. 
+            -- so that it works properly
+            if not ((curr_steps = 180 and direction_cw = '1') or 
                 (curr_steps = 0 and direction_cw = '0')) then
                 stop_next <= '0';
             end if; 
+            
             next_steps <= curr_steps;
             next_frq <= curr_frq;
         end if;
