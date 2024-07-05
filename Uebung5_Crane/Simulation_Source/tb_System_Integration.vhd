@@ -32,11 +32,14 @@ ARCHITECTURE behavior OF tb_System_Integration IS
     signal clk : std_logic := '0';
     signal direction_cw : std_logic := '0';
     signal rst : std_logic := '0';
+    signal magnet_in : std_logic := '0';
 
     -- Outputs
     signal m : std_logic_vector(3 downto 0);
     signal SEG : std_logic_vector(6 downto 0);
     signal digit_sel : std_logic_vector(7 downto 0);
+    signal magnet_out : std_logic;
+    signal magnet_led : std_logic;
 
     -- Clock period definitions
     constant clk_period : time := 2 ms;
@@ -53,6 +56,9 @@ BEGIN
         clk => clk,
         direction_cw => direction_cw,
         stop_button => rst,
+        magnet_in => magnet_in,
+        magnet_out => magnet_out,
+        magnet_led => magnet_led,
         m => m,
         SEG => SEG,
         digit_sel => digit_sel
