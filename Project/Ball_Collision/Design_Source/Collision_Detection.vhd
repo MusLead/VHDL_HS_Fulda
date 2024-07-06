@@ -68,8 +68,8 @@ begin
         collision_proc : process(reset_i, ball_x_i, ball_y_i, racket_y_pos1_i, racket_y_pos2_i)
                 variable ball_x, ball_y, racket_y1, racket_y2 : integer;
         begin
-                ball_x := to_integer(unsigned(ball_x_i));
-                ball_y := to_integer(unsigned(ball_y_i));
+                ball_x    := to_integer(unsigned(ball_x_i));
+                ball_y    := to_integer(unsigned(ball_y_i));
                 racket_y1 := to_integer(unsigned(racket_y_pos1_i));
                 racket_y2 := to_integer(unsigned(racket_y_pos2_i));
                         
