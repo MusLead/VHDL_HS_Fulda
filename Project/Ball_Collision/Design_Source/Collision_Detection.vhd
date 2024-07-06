@@ -73,35 +73,18 @@ begin
                 racket_y1 := to_integer(unsigned(racket_y_pos1_i));
                 racket_y2 := to_integer(unsigned(racket_y_pos2_i));
                         
-                if not check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) and 
-                        not check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2, racket_height, racket_length) then -- 0
-                        -- ball collides with wall but not with both rackets
-
-                        if ball_x = 0 then -- 1
-                                hit_wall <= "110";
-                        elsif (ball_x + ball_length) = (screen_width - 1) then -- 2
-                                hit_wall <= "101";
-                        elsif ball_y = 0 then -- 3
-                                hit_wall <= "010";
-                        elsif (ball_y + ball_length) = (screen_height - 1) then -- 4
-                                hit_wall <= "011";
-                        end if;     
-
-                        hit_racket_l <= (others => '0');
-                        hit_racket_r <= (others => '0');
-                
-                elsif check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
+                if check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
                         -- left racket collides with ball 
 
-                        if check_collision(racket_left_space, racket_y1 + 0, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
+                        if check_collision(racket_left_space, racket_y1 + 0, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "01";
-                        elsif check_collision(racket_left_space, racket_y1 + 6, 12, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
+                        elsif check_collision(racket_left_space, racket_y1 + 6, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "10";
-                        elsif check_collision(racket_left_space, racket_y1 + 12, 18, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
+                        elsif check_collision(racket_left_space, racket_y1 + 12, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "11";
-                        elsif check_collision(racket_left_space, racket_y1 + 18, 24, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
+                        elsif check_collision(racket_left_space, racket_y1 + 18, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "10";
-                        elsif check_collision(racket_left_space, racket_y1 + 24, 30, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
+                        elsif check_collision(racket_left_space, racket_y1 + 24, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "01";  
                         end if;
 
@@ -111,27 +94,37 @@ begin
                 elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2, racket_height, racket_length) then
                         -- right racket collides with ball
 
-                        if check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 0, 6, racket_length) then -- 6
+                        if check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 0, 6, racket_length) then
                                 hit_racket_r <= "01";
-                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 6, 12, racket_length) then -- 6
+                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 6, 6, racket_length) then
                                 hit_racket_r <= "10";
-                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 12, 18, racket_length) then -- 6
+                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 12, 6, racket_length) then
                                 hit_racket_r <= "11";
-                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 18, 24, racket_length) then -- 6
+                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 18, 6, racket_length) then
                                 hit_racket_r <= "10";
-                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 24, 30, racket_length) then -- 6
+                        elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 24, 6, racket_length) then
                                 hit_racket_r <= "01";
                         end if;
 
                         hit_wall <= (others => '0');
                         hit_racket_l <= (others => '0');
-
-                else 
-                        -- no collision
-
-                        hit_wall <= (others => '0');
+                else
+                        -- the ball does not collide with any rackets
                         hit_racket_l <= (others => '0');
                         hit_racket_r <= (others => '0');
+                        
+                        -- check if the ball collides with wall
+                        if ball_x = 0 then 
+                                hit_wall <= "110";
+                        elsif (ball_x + ball_length) >= (screen_width - 1) then
+                                hit_wall <= "101";
+                        elsif ball_y = 0 then 
+                                hit_wall <= "010";
+                        elsif (ball_y + ball_length) >= (screen_height - 1) then 
+                                hit_wall <= "011";
+                        else 
+                                hit_wall <= (others => '0');
+                        end if;     
 
                 end if;
 
