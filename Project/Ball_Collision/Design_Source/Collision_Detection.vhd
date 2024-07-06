@@ -75,7 +75,7 @@ begin
                         
                 if not check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) and 
                         not check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2, racket_height, racket_length) then -- 0
-                -- ball collides with wall but not with both rackets
+                        -- ball collides with wall but not with both rackets
 
                         if ball_x = 0 then -- 1
                                 hit_wall <= "110";
@@ -91,7 +91,7 @@ begin
                         hit_racket_r <= (others => '0');
                 
                 elsif check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
-                -- left racket collides with ball 
+                        -- left racket collides with ball 
 
                         if check_collision(racket_left_space, racket_y1 + 0, 6, racket_length, ball_x, ball_y, ball_length, ball_length) then -- 5
                                 hit_racket_l <= "01";
@@ -109,7 +109,7 @@ begin
                         hit_racket_r <= (others => '0');
                 
                 elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2, racket_height, racket_length) then
-                -- right racket collides with ball
+                        -- right racket collides with ball
 
                         if check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + 0, 6, racket_length) then -- 6
                                 hit_racket_r <= "01";
@@ -127,7 +127,7 @@ begin
                         hit_racket_l <= (others => '0');
 
                 else 
-                -- no collision
+                        -- no collision
 
                         hit_wall <= (others => '0');
                         hit_racket_l <= (others => '0');
