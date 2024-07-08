@@ -60,12 +60,19 @@ def collision_detection(screen, boxes, racket_l, racket_r, ball):
             pygame.draw.rect(screen, "purple", box)
 
 
+def draw_coordinates(screen, boxes, font):
+    y_offset = SCREEN_HEIGHT - 40
+    for i, box in enumerate(boxes):
+        text_surface = font.render(f'Box {i}: x={box.x}, y={box.y}', True, (255, 255, 255))
+        screen.blit(text_surface, (10, y_offset))
+        y_offset += 20
+
 #game window
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Drag And Drop')
+pygame.display.set_caption('Drag And Drop Ping Pong Squares')
 
 active_box = None
 boxes = []
@@ -77,6 +84,8 @@ boxes.append(racket_l)
 boxes.append(racket_r)
 boxes.append(ball)
 
+# Font for displaying coordinates
+font = pygame.font.Font(None, 24)
 
 
 run = True
@@ -86,6 +95,7 @@ while run:
   screen.fill("SteelBlue")
 
   collision_detection(screen, boxes, racket_l, racket_r, ball)
+  draw_coordinates(screen, boxes, font)
 
   for event in pygame.event.get():
     if event.type == pygame.MOUSEBUTTONDOWN:
