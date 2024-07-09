@@ -59,6 +59,7 @@ architecture Behavioral of Collision_Detection is
 
         -- This function check_collision checks if two rectangles collide or not. 
         -- Both rectangles are defined by their top-left corner position and dimensions.
+        -- The function checks every edge of both rectangles whether they collide with eachother
         -- x1, y1: The coordinates, h1: height,  w1: width of 1. Rectangle
         -- x2, y2: The coordinates, h2: height,  w2: width of 2. Rectangle
         -- return value: true if the rectangles collide, false otherwise
