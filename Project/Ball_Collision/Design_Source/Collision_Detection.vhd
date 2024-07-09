@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- How to avoid unwanted latch: https://youtu.be/o0Dv-Kr99ac?si=RR8U3OkxQ7RaDIPL
 ----------------------------------------------------------------------------------
 
 library IEEE;
@@ -91,7 +91,9 @@ begin
 
                 if check_collision(racket_left_space, racket_y1, racket_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
                         -- left racket collides with ball. 
-
+                      
+                        hit_racket_l <= (others => '0'); -- this line to remove an unwanted latch
+                        
                         if check_collision(racket_left_space, racket_y1 + (0 * segment_height), segment_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
                                 hit_racket_l <= "01"; -- 1. Segment hit
                         elsif check_collision(racket_left_space, racket_y1 + (1 * segment_height), segment_height, racket_length, ball_x, ball_y, ball_length, ball_length) then
@@ -109,6 +111,8 @@ begin
 
                 elsif check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2, racket_height, racket_length) then
                         -- right racket collides with ball
+                    
+                        hit_racket_r <= (others => '0'); -- this line to remove an unwanted latch
 
                         if check_collision(ball_x, ball_y, ball_length, ball_length, racket_right_space, racket_y2 + (0 * segment_height), segment_height, racket_length) then
                                 hit_racket_r <= "01"; -- 1. Segment hit
