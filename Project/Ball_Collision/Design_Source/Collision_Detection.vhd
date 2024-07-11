@@ -122,7 +122,7 @@ begin
                                                 when 4 => hit_racket_l <= "01"; -- 1. Segment hit
                                                 when others => null;
                                         end case;
-                                        exit;
+                                        exit; -- break the loop
                                 end if;
                         end loop;
 
@@ -149,7 +149,7 @@ begin
                                                 when 4 => hit_racket_r <= "01"; -- 1. Segment hit
                                                 when others => null;
                                         end case;
-                                        exit;
+                                        exit; -- break the loop
                                 end if;
                         end loop;
 
