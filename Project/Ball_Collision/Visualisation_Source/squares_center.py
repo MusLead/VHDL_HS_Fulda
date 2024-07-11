@@ -1,3 +1,12 @@
+"""
+Just a visualisation of the collision between 2 boxes.
+This code visualize the logic of the collision detection between 2 squares.
+The squares change color when they intersect.
+
+prequisites:
+- pygame
+- python3 (using ordered dictionary: version 3.7 higher)
+"""
 import pygame
 
 pygame.init()

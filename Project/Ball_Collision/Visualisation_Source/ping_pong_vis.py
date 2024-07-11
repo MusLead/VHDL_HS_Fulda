@@ -5,7 +5,7 @@ The ball changes color when it hits one of the rackets or walls.
 
 prequisites:
 - pygame
-- python3 (using dictionary: version 3.7 higher)
+- python3 (using ordered dictionary: version 3.7 higher)
 """
 import pygame
 
