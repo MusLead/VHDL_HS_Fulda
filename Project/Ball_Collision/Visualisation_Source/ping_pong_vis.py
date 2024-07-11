@@ -11,13 +11,12 @@ import pygame
 
 pygame.init()
 
-def check_collision(x1,y1,w1,h1,x2,y2,w2,h2):
-    
+def check_collision(box1,box2):
     # Check if the squares intersect
-    return (x1 <= x2 + w2 and
-        x1 + w1 >= x2 and
-        y1 <= y2 + h2 and
-        y1 + h1 >= y2)
+    return (box1.x <= box2.x + box2.width and 
+        box1.x + box1.width >= box2.x and 
+        box1.y <= box2.y + box2.height and 
+        box1.y + box1.height >= box2.y)
     
 
 def colorize_box(screen, target, box1, box2, color):
@@ -28,29 +27,21 @@ def colorize_box(screen, target, box1, box2, color):
         pygame.draw.rect(screen, "purple", target)
 
 def collision_detection(screen, boxes, racket_l, racket_r, ball):
+    segment_colors = ["yellow", "green", "aqua", "green", "yellow"]
+    seg_h = 6
     for box in boxes.values():
-        if check_collision(racket_l.x, racket_l.y, racket_l.width, racket_l.height, ball.x, ball.y, ball.width, ball.height):
-            if check_collision(racket_l.x, racket_l.y + 0, racket_l.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_l, ball, "yellow")  
-            elif check_collision(racket_l.x, racket_l.y + 6, racket_l.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_l, ball, "green")
-            elif check_collision(racket_l.x, racket_l.y + 12, racket_l.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_l, ball, "aqua")
-            elif check_collision(racket_l.x, racket_l.y + 18, racket_l.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_l, ball, "green")
-            elif check_collision(racket_l.x, racket_l.y + 24, racket_l.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_l, ball, "yellow")
-        elif check_collision(ball.x, ball.y, ball.width, ball.height, racket_r.x, racket_r.y, racket_r.width, racket_r.height):
-            if check_collision(racket_r.x, racket_r.y + 0, racket_r.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_r, ball, "yellow")  
-            elif check_collision(racket_r.x, racket_r.y + 6, racket_r.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_r, ball, "green")
-            elif check_collision(racket_r.x, racket_r.y + 12, racket_r.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_r, ball, "aqua")
-            elif check_collision(racket_r.x, racket_r.y + 18, racket_r.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_r, ball, "green")
-            elif check_collision(racket_r.x, racket_r.y + 24, racket_r.width, 6, ball.x, ball.y, ball.width, ball.height):
-                colorize_box(screen, box, racket_r, ball, "yellow")
+        if check_collision(ball, racket_l):
+            for i in range(0,5): # segments 0 to 4
+                segment = pygame.Rect(racket_l.x, racket_l.y + (i * seg_h), racket_l.width, seg_h)
+                if check_collision(segment, ball):
+                    colorize_box(screen, box, racket_l, ball, segment_colors[i])
+                    break
+        elif check_collision(ball, racket_r):
+            for i in range(0,5): # segments 0 to 4
+                segment = pygame.Rect(racket_r.x, racket_r.y + (i * seg_h), racket_r.width, seg_h)
+                if check_collision(segment, ball):
+                    colorize_box(screen, box, racket_r, ball, segment_colors[i])
+                    break
         else:
             if ball.x == 0:
                 pygame.draw.rect(screen, "red", ball)
