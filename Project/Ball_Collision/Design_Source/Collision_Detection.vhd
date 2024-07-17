@@ -160,18 +160,17 @@ begin
                         -- the ball does not collide with any rackets
                         hit_racket_l <= (others => '0');
                         hit_racket_r <= (others => '0');
-
+                        hit_wall <= (others => '0');
+                        
                         -- check if the ball collides with wall
-                        if ball.x = 0 then
+                        if ball.x <= 0 then
                                 hit_wall <= "110"; -- collides with left wall
                         elsif (ball.x + ball.width) >= (screen_width - 1) then
                                 hit_wall <= "101"; -- collides with right wall
-                        elsif ball.y = 0 then
+                        elsif ball.y <= 0 then
                                 hit_wall <= "010"; -- collides with top wall
                         elsif (ball.y + ball.height) >= (screen_height - 1) then
-                                hit_wall <= "011"; -- collides with bottom wall
-                        else
-                                hit_wall <= (others => '0'); -- no collision
+                                hit_wall <= "001"; -- collides with bottom wall
                         end if;
                 end if;
         end process collision_proc;
