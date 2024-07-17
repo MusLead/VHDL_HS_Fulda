@@ -56,6 +56,7 @@ architecture Behavioral of Collision_Detection is
 
         signal hit_wall : std_logic_vector(2 downto 0);
         signal hit_racket_l, hit_racket_r : std_logic_vector(1 downto 0);
+        signal ball, racket_l, racket_r, segment : rectangle;
 
         -- Define a record to represent a rectangle
         type rectangle is record
@@ -82,7 +83,6 @@ begin
         -- if collision happen either left or right racket then we want to know which segment of the racket was hit.
         -- Switching between segments is done by incrementing the y coordinate with respect to segment_height.
         collision_proc : process (reset_i, ball_x_i, ball_y_i, racket_y_pos1_i, racket_y_pos2_i)
-                variable ball, racket_l, racket_r, segment : rectangle;
         begin
                 -- Initialize the variables
 
