@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- TODO: the testench must be adjusted with a new collision logic.
 ----------------------------------------------------------------------------------
 
 library IEEE;
