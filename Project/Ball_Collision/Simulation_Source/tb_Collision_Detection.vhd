@@ -18,7 +18,6 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -100,19 +99,63 @@ begin
         reset_i <= '0';
         wait for clock_period;
 
-        -- Test collision with left racket
+        -- Test collision with left racket segments
         ball_x_i <= std_logic_vector(to_unsigned(racket_left_space, 10));
-        ball_y_i <= std_logic_vector(to_unsigned(15, 10));
         racket_y_pos1_i <= std_logic_vector(to_unsigned(10, 10));
-        wait for clock_period;
-        assert (hit_racket_l_o = "01") report "Collision with left racket top segment not detected" severity error;
 
-        -- Test collision with right racket
-        ball_x_i <= std_logic_vector(to_unsigned(racket_right_space, 10));
-        ball_y_i <= std_logic_vector(to_unsigned(27, 10));
-        racket_y_pos2_i <= std_logic_vector(to_unsigned(20, 10));
+        -- Test collision with left racket segment 1
+        ball_y_i <= std_logic_vector(to_unsigned(10, 10));
         wait for clock_period;
-        assert (hit_racket_r_o = "10") report "Collision with right racket second segment not detected" severity error;
+        assert (hit_racket_l_o = "01") report "Collision with left racket segment 1 not detected" severity error;
+
+        -- Test collision with left racket segment 2
+        ball_y_i <= std_logic_vector(to_unsigned(16, 10));
+        wait for clock_period;
+        assert (hit_racket_l_o = "10") report "Collision with left racket segment 2 not detected" severity error;
+
+        -- Test collision with left racket segment 3
+        ball_y_i <= std_logic_vector(to_unsigned(22, 10));
+        wait for clock_period;
+        assert (hit_racket_l_o = "11") report "Collision with left racket segment 3 not detected" severity error;
+
+        -- Test collision with left racket segment 4
+        ball_y_i <= std_logic_vector(to_unsigned(28, 10));
+        wait for clock_period;
+        assert (hit_racket_l_o = "10") report "Collision with left racket segment 4 not detected" severity error;
+
+        -- Test collision with left racket segment 5
+        ball_y_i <= std_logic_vector(to_unsigned(34, 10));
+        wait for clock_period;
+        assert (hit_racket_l_o = "01") report "Collision with left racket segment 5 not detected" severity error;
+
+        -- Test collision with right racket segments
+        ball_x_i <= std_logic_vector(to_unsigned(racket_right_space, 10));
+        racket_y_pos2_i <= std_logic_vector(to_unsigned(20, 10));
+
+        -- Test collision with right racket segment 1
+        ball_y_i <= std_logic_vector(to_unsigned(20, 10));
+        wait for clock_period;
+        assert (hit_racket_r_o = "01") report "Collision with right racket segment 1 not detected" severity error;
+
+        -- Test collision with right racket segment 2
+        ball_y_i <= std_logic_vector(to_unsigned(26, 10));
+        wait for clock_period;
+        assert (hit_racket_r_o = "10") report "Collision with right racket segment 2 not detected" severity error;
+
+        -- Test collision with right racket segment 3
+        ball_y_i <= std_logic_vector(to_unsigned(32, 10));
+        wait for clock_period;
+        assert (hit_racket_r_o = "11") report "Collision with right racket segment 3 not detected" severity error;
+
+        -- Test collision with right racket segment 4
+        ball_y_i <= std_logic_vector(to_unsigned(38, 10));
+        wait for clock_period;
+        assert (hit_racket_r_o = "10") report "Collision with right racket segment 4 not detected" severity error;
+
+        -- Test collision with right racket segment 5
+        ball_y_i <= std_logic_vector(to_unsigned(44, 10));
+        wait for clock_period;
+        assert (hit_racket_r_o = "01") report "Collision with right racket segment 5 not detected" severity error;
 
         -- Test collision with top wall
         ball_x_i <= std_logic_vector(to_unsigned(320, 10));
