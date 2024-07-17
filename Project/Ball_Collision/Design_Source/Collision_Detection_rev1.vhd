@@ -16,6 +16,10 @@
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- How to avoid unwanted latch: https://youtu.be/o0Dv-Kr99ac?si=RR8U3OkxQ7RaDIPL
+-- NOTE:
+-- this code below using signal instead variable. that does not make anything better,
+-- because the variables are being used only within the scope process. The variables
+-- are not being intended to be used as signal ( a real logic circuit ).
 ----------------------------------------------------------------------------------
 
 library IEEE;
