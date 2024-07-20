@@ -122,7 +122,7 @@ begin
 
                         next_state <= no_collision;
 
-                else
+                else -- check for collision if no collition and changing state
                         if is_coll_racket_l then -- left racket collides with ball. 
 
                                 -- check which segment of the racket was hit
@@ -173,18 +173,19 @@ begin
 
                         else
                                 -- check if the ball collides with wall
-                                if ball.x <= 0 then
-                                        hit_wall <= "110"; -- collides with left wall
-                                        next_state <= left_wall_coll;
-                                elsif (ball.x + ball.width) >= (screen_width - 1) then
-                                        hit_wall <= "101"; -- collides with right wall
-                                        next_state <= right_wall_coll;
-                                elsif ball.y <= 0 then
+                                
+                                if ball.y <= 0 then
                                         hit_wall <= "010"; -- collides with top wall
                                         next_state <= top_wall_coll;
                                 elsif (ball.y + ball.height) >= (screen_height - 1) then
                                         hit_wall <= "001"; -- collides with bottom wall
                                         next_state <= bottom_wall_coll;
+                                elsif ball.x <= 0 then
+                                        hit_wall <= "110"; -- collides with left wall
+                                        next_state <= left_wall_coll;
+                                elsif (ball.x + ball.width) >= (screen_width - 1) then
+                                        hit_wall <= "101"; -- collides with right wall
+                                        next_state <= right_wall_coll;
                                 else
                                         next_state <= no_collision;
                                 end if;
