@@ -122,7 +122,7 @@ begin
 
                         next_state <= no_collision;
 
-                elsif curr_state = no_collision -- check for collision if no collition
+                elsif curr_state = no_collision then -- check for collision if no collition
                         if is_coll_racket_l then -- left racket collides with ball. 
 
                                 -- check which segment of the racket was hit
