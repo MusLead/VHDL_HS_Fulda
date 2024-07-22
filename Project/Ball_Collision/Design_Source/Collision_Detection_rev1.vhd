@@ -76,13 +76,13 @@ architecture Behavioral of Collision_Detection is
 
         type collision_state is (no_collision, left_wall_coll, right_wall_coll, top_wall_coll, bottom_wall_coll, racket_l_coll, racket_r_coll);
         signal next_state, curr_state : collision_state := no_collision;
-        signal counter: integer := 0;
+        signal curr_counter, next_counter: integer := 0;
 begin
 
         -- Collision detection process handles the collision between the ball and the rackets and the walls.
         -- if collision happen either left or right racket then we want to know which segment of the racket was hit.
         -- Switching between segments is done by incrementing the y coordinate with respect to segment_height.
-        collision_proc : process (reset_i, ball_x_i, ball_y_i, racket_y_pos1_i, racket_y_pos2_i, curr_state)
+        collision_proc : process (reset_i, ball_x_i, ball_y_i, racket_y_pos1_i, racket_y_pos2_i, curr_state, curr_counter)
                 variable ball, racket_l, racket_r, segment : rectangle;
                 variable is_coll_racket_l, is_coll_racket_r : boolean;
         begin
@@ -111,8 +111,13 @@ begin
                 hit_racket_l <= (others => '0');
                 hit_racket_r <= (others => '0');
                 hit_wall <= (others => '0');
-
-                if (((curr_state = left_wall_coll and ball.x > 0) or
+                next_counter <= curr_counter;
+                next_state <= curr_state;
+                
+                if(curr_state = left_wall_coll or curr_state = right_wall_coll) and curr_counter <= 100 then
+                            next_counter <= curr_counter + 1;
+                            next_state <= curr_state;
+                elsif (((curr_state = left_wall_coll and ball.x > 0) or
                         (curr_state = right_wall_coll and (ball.x + ball.width) < (screen_width - 1)) or
                         (curr_state = top_wall_coll and ball.y > 0) or
                         (curr_state = bottom_wall_coll and (ball.y + ball.height) < (screen_height - 1)) or
@@ -120,15 +125,11 @@ begin
                         (curr_state = racket_r_coll and (not is_coll_racket_r))) 
                         and (curr_state /= no_collision) )
                         then
-                        if(curr_state = left_wall_coll or curr_state = right_wall_coll) and counter <= 100 then
-                            counter <= counter + 1;
-                            next_state <= curr_state;
-                        else
-                            counter <= 0;
+                            next_counter <= 0;
                             next_state <= no_collision;
-                        end if;
 
                 elsif curr_state = no_collision or is_coll_racket_l or is_coll_racket_r then  -- check for collision if no collition and changing state
+                        next_counter <= 0;
                         if is_coll_racket_l then -- left racket collides with ball. 
 
                                 -- check which segment of the racket was hit
@@ -209,8 +210,10 @@ begin
                 if rising_edge(clock_i) then
                         if reset_i = '1' then
                                 curr_state <= no_collision;
+                                curr_counter <= 0;
                         else        
                                 curr_state <= next_state;
+                                curr_counter <= next_counter;
                         end if;
                 end if;
         end process state_register; 
