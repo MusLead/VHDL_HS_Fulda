@@ -114,7 +114,7 @@ begin
                 next_counter <= curr_counter;
                 next_state <= curr_state;
                 
-                if(curr_state = left_wall_coll or curr_state = right_wall_coll) and curr_counter <= 100 then
+                if(curr_state = left_wall_coll or curr_state = right_wall_coll) and curr_counter <= 100_000_000 then
                             next_counter <= curr_counter + 1;
                             next_state <= curr_state;
                 elsif (((curr_state = left_wall_coll and ball.x > 0) or
