@@ -168,7 +168,7 @@ begin
         -- Test collision with bottom wall
         ball_x_i <= std_logic_vector(to_unsigned(320, 10));
         ball_y_i <= std_logic_vector(to_unsigned(screen_height - ball_length, 10));
-         wait for clock_period;
+        wait for clock_period;
         assert (hit_wall_o = "000") report "It did not go to the no_collision state first!" severity error;
         wait for clock_period;
         assert (hit_wall_o = "001") report "Collision with bottom wall not detected" severity error;

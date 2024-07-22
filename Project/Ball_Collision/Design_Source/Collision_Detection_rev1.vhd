@@ -76,6 +76,7 @@ architecture Behavioral of Collision_Detection is
 
         type collision_state is (no_collision, left_wall_coll, right_wall_coll, top_wall_coll, bottom_wall_coll, racket_l_coll, racket_r_coll);
         signal next_state, curr_state : collision_state := no_collision;
+        signal counter: integer := 0;
 begin
 
         -- Collision detection process handles the collision between the ball and the rackets and the walls.
@@ -119,10 +120,15 @@ begin
                         (curr_state = racket_r_coll and (not is_coll_racket_r))) 
                         and (curr_state /= no_collision) )
                         then
+                        if(curr_state = left_wall_coll or curr_state = right_wall_coll) and counter <= 100 then
+                            counter <= counter + 1;
+                            next_state <= curr_state;
+                        else
+                            counter <= 0;
+                            next_state <= no_collision;
+                        end if;
 
-                        next_state <= no_collision;
-
-                else -- check for collision if no collition and changing state
+                elsif curr_state = no_collision or is_coll_racket_l or is_coll_racket_r then  -- check for collision if no collition and changing state
                         if is_coll_racket_l then -- left racket collides with ball. 
 
                                 -- check which segment of the racket was hit
