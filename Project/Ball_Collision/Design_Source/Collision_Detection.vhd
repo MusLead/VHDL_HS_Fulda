@@ -74,7 +74,10 @@ architecture Behavioral of Collision_Detection is
                 rect2 : rectangle
         ) return boolean is
         begin
-                return ((rect1.x + rect1.width) >= rect2.x) and (rect1.x <= (rect2.x + rect2.width)) and ((rect1.y + rect1.height) >= rect2.y) and (rect1.y <= (rect2.y + rect2.height));
+                return ((rect1.x + rect1.width) >= rect2.x) and 
+                        (rect1.x <= (rect2.x + rect2.width)) and 
+                        ((rect1.y + rect1.height) >= rect2.y) and 
+                        (rect1.y <= (rect2.y + rect2.height));
         end function;
 begin
 
@@ -122,7 +125,7 @@ begin
                                                 when 4 => hit_racket_l <= "01"; -- 1. Segment hit
                                                 when others => null;
                                         end case;
-                                        exit;
+                                        exit; -- break the loop
                                 end if;
                         end loop;
 
@@ -149,7 +152,7 @@ begin
                                                 when 4 => hit_racket_r <= "01"; -- 1. Segment hit
                                                 when others => null;
                                         end case;
-                                        exit;
+                                        exit; -- break the loop
                                 end if;
                         end loop;
 
@@ -160,18 +163,17 @@ begin
                         -- the ball does not collide with any rackets
                         hit_racket_l <= (others => '0');
                         hit_racket_r <= (others => '0');
-
+                        hit_wall <= (others => '0');
+                        
                         -- check if the ball collides with wall
-                        if ball.x = 0 then
+                        if (ball.x < (racket_l.x + 10)) then
                                 hit_wall <= "110"; -- collides with left wall
-                        elsif (ball.x + ball.width) >= (screen_width - 1) then
+                        elsif (ball.x + ball.width) > (racket_r.x) then
                                 hit_wall <= "101"; -- collides with right wall
-                        elsif ball.y = 0 then
+                        elsif ball.y <= 0 then
                                 hit_wall <= "010"; -- collides with top wall
                         elsif (ball.y + ball.height) >= (screen_height - 1) then
-                                hit_wall <= "011"; -- collides with bottom wall
-                        else
-                                hit_wall <= (others => '0'); -- no collision
+                                hit_wall <= "001"; -- collides with bottom wall
                         end if;
                 end if;
         end process collision_proc;

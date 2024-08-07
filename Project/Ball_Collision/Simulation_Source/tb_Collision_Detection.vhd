@@ -124,18 +124,18 @@ begin
         ball_x_i <= std_logic_vector(to_unsigned(320, 10));
         ball_y_i <= std_logic_vector(to_unsigned(screen_height - ball_length, 10));
         wait for clock_period;
-        assert (hit_wall_o = "011") report "Collision with bottom wall not detected" severity error;
+        assert (hit_wall_o = "001") report "Collision with bottom wall not detected" severity error;
 
         -- Test collision with left wall
         ball_x_i <= std_logic_vector(to_unsigned(0, 10));
         ball_y_i <= std_logic_vector(to_unsigned(240, 10));
-        wait for clock_period;
+        wait for clock_period * 2;
         assert (hit_wall_o = "110") report "Collision with left wall not detected" severity error;
 
         -- Test collision with right wall
         ball_x_i <= std_logic_vector(to_unsigned(screen_width - ball_length, 10));
         ball_y_i <= std_logic_vector(to_unsigned(240, 10));
-        wait for clock_period;
+        wait for clock_period * 2;
         assert (hit_wall_o = "101") report "Collision with right wall not detected" severity error;
 
         -- Test no collision
