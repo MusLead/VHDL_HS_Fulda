@@ -163,9 +163,9 @@ begin
                         hit_wall <= (others => '0');
                         
                         -- check if the ball collides with wall
-                        if ball.x <= 0 then
+                        if (ball.x < (racket_l.x + 10)) then
                                 hit_wall <= "110"; -- collides with left wall
-                        elsif (ball.x + ball.width) >= (screen_width - 1) then
+                        elsif (ball.x + ball.width) > (racket_r.x) then
                                 hit_wall <= "101"; -- collides with right wall
                         elsif ball.y <= 0 then
                                 hit_wall <= "010"; -- collides with top wall
