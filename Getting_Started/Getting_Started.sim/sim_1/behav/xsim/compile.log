@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/Sourcecode-20240423/tasterXor.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tasterXor'
+INFO: [VRFC 10-163] Analyzing VHDL file "G:/Agha_VHDL/Sourcecode-20240423/tasterXor_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tasterXor_tb'

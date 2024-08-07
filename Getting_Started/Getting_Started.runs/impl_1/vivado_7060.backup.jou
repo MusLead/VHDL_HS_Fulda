@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Tue Apr 23 12:42:57 2024
+# Process ID: 7060
+# Current directory: G:/Agha_VHDL/Getting_Started/Getting_Started.runs/impl_1
+# Command line: vivado.exe -log tasterXor.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source tasterXor.tcl -notrace
+# Log file: G:/Agha_VHDL/Getting_Started/Getting_Started.runs/impl_1/tasterXor.vdi
+# Journal file: G:/Agha_VHDL/Getting_Started/Getting_Started.runs/impl_1\vivado.jou
+# Running On: eslab-004, OS: Windows, CPU Frequency: 2808 MHz, CPU Physical cores: 10, Host memory: 34082 MB
+#-----------------------------------------------------------
+source tasterXor.tcl -notrace
