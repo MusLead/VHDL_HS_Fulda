@@ -181,16 +181,16 @@ begin
                         else
                                 -- check if the ball collides with wall
                                 
-                                if (ball.x < (racket_l.x + 10)) then
+                                if ball.y <= 0 then
                                         hit_wall <= "010"; -- collides with top wall
                                         next_state <= top_wall_coll;
-                                elsif (ball.x + ball.width) > (racket_r.x) then
+                                elsif (ball.y + ball.height) >= (screen_height - 1) then
                                         hit_wall <= "001"; -- collides with bottom wall
                                         next_state <= bottom_wall_coll;
-                                elsif ball.x <= 0 then
+                                elsif (ball.x < (racket_l.x + 10)) then
                                         hit_wall <= "110"; -- collides with left wall
                                         next_state <= left_wall_coll;
-                                elsif (ball.x + ball.width) >= (screen_width - 1) then
+                                elsif (ball.x + ball.width) > (racket_r.x) then
                                         hit_wall <= "101"; -- collides with right wall
                                         next_state <= right_wall_coll;
                                 else
